@@ -58,16 +58,12 @@ This function is called at the very end of Spacemacs initialization."
   (define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
   (define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
   (global-set-key [escape] 'evil-exit-emacs-state)
-  (menu-bar-mode 1)
 
   (let ((font "Source Code Pro"))
     (when (member font (font-family-list))
       (pcase window-system
         (`x (spacemacs/set-font font 10))
         (other (spacemacs/set-font font 12)))))
-  (pcase window-system
-    (`x (menu-bar-mode 0))
-    (other (menu-bar-mode 1)))
   )
 
 ;; Custom variables
@@ -90,3 +86,4 @@ This function is called at the very end of Spacemacs initialization."
  '(ring-bell-function (quote ignore) t)
  '(show-paren-mode t)
  '(tool-bar-mode nil))
+
