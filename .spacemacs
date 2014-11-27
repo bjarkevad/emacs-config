@@ -65,6 +65,9 @@ This function is called at the very end of Spacemacs initialization."
       (pcase window-system
         (`x (spacemacs/set-font font 10))
         (other (spacemacs/set-font font 12)))))
+  (pcase window-system
+    (`x (menu-bar-mode 0))
+    (other (menu-bar-mode 1)))
   )
 
 ;; Custom variables
