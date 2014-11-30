@@ -32,7 +32,7 @@
 (defun dotspacemacs/init ()
   "User initialization for Spacemacs. This function is called at the very
  startup."
-  (load-theme 'hc-zenburn)
+  ;;(load-theme 'hc-zenburn)
   )
 
 (defun dotspacemacs/config ()
