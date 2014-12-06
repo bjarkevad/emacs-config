@@ -9,7 +9,7 @@
  ;; Paths must have a trailing slash (ie. `~/.mycontribs/')
  dotspacemacs-configuration-layer-path '()
  ;; List of contribution to load.
- dotspacemacs-configuration-layers '(themes-megapack python auctex misc)
+ dotspacemacs-configuration-layers '(themes-megapack python auctex misc company-mode)
  ;; If non nil the frame is maximized when Emacs starts up (Emacs 24.4+ only)
  dotspacemacs-fullscreen-at-startup nil
  ;; If non nil smooth scrolling (native-scrolling) is enabled. Smooth scrolling
@@ -58,12 +58,15 @@ This function is called at the very end of Spacemacs initialization."
   (define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
   (define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
   (global-set-key [escape] 'evil-exit-emacs-state)
+  (setq flycheck-check-syntax-automatically '(save idle-change mode-enabled))
+  ;; (setq global-auto-complete-mode 0)
 
   (let ((font "Source Code Pro"))
     (when (member font (font-family-list))
       (pcase window-system
         (`x (spacemacs/set-font font 10))
         (other (spacemacs/set-font font 12)))))
+
   )
 
 ;; Custom variables
@@ -82,8 +85,14 @@ This function is called at the very end of Spacemacs initialization."
  '(column-number-mode t)
  '(custom-safe-themes
    (quote
-    ("4217c670c803e8a831797ccf51c7e6f3a9e102cb9345e3662cc449f4c194ed7d" "1affe85e8ae2667fb571fc8331e1e12840746dae5c46112d5abb0c3a973f5f5a" "41b6698b5f9ab241ad6c30aea8c9f53d539e23ad4e3963abff4b57c0f8bf6730" default)))
+    ("2b5aa66b7d5be41b18cc67f3286ae664134b95ccc4a86c9339c886dfd736132d" "08efabe5a8f3827508634a3ceed33fa06b9daeef9c70a24218b70494acdf7855" "4217c670c803e8a831797ccf51c7e6f3a9e102cb9345e3662cc449f4c194ed7d" "1affe85e8ae2667fb571fc8331e1e12840746dae5c46112d5abb0c3a973f5f5a" "41b6698b5f9ab241ad6c30aea8c9f53d539e23ad4e3963abff4b57c0f8bf6730" default)))
  '(ring-bell-function (quote ignore) t)
  '(show-paren-mode t)
  '(tool-bar-mode nil))
 
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:background nil)))))
