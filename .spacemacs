@@ -3,13 +3,12 @@
 ;; It must be stored in your home directory.
 
 ;; Variables
-
 (setq-default
  ;; List of additional paths where to look for configuration layers.
  ;; Paths must have a trailing slash (ie. `~/.mycontribs/')
  dotspacemacs-configuration-layer-path '()
  ;; List of contribution to load.
- dotspacemacs-configuration-layers '(themes-megapack python auctex misc company-mode)
+ dotspacemacs-configuration-layers '(themes-megapack python auctex misc company-mode haskell)
  ;; If non nil the frame is maximized when Emacs starts up (Emacs 24.4+ only)
  dotspacemacs-fullscreen-at-startup nil
  ;; If non nil smooth scrolling (native-scrolling) is enabled. Smooth scrolling
@@ -69,7 +68,60 @@ This function is called at the very end of Spacemacs initialization."
   (pcase window-system
     (`x (menu-bar-mode 0))
     (other (menu-bar-mode 1)))
+
+      (add-to-list 'evil-emacs-state-modes 'helm-mode)
+      ;;(define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up)
+      ;;(define-key evil-visual-state-map (kbd "C-u") 'evil-scroll-up)
+      ;;(define-key evil-insert-state-map (kbd "C-u")
+      ;; (lambda ()
+      ;;(interactive)
+      ;;(evil-delete (point-at-bol) (point))))
+
+      ;; FLYCHECK
+      (add-hook 'after-init-hook #'global-flycheck-mode)
+
+      ;; HASKELL
+      ;(add-hook 'haskell-mode-hook 'interactive-haskell-mode)
+      (custom-set-variables
+        '(haskell-process-type 'cabal-repl)
+        '(haskell-process-suggest-remove-import-lines t)
+        '(haskell-process-auto-import-loaded-modules t)
+        '(haskell-process-log t))
+
+      (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
+      (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
+      ;; (eval-after-load "haskell-mode"
+      ;;   '(define-key haskell-mode-map (kbd "C-c C-c") 'haskell-compile))
+      ;; (eval-after-load "haskell-cabal"
+      ;;   '(define-key haskell-mode-map (kbd "C-c C-c") 'haskell-compile))
+
+      (evil-define-key 'insert haskell-interactive-mode-map (kbd "RET") 'haskell-interactive-mode-return)
+      (evil-define-key 'normal haskell-interactive-mode-map (kbd "RET") 'haskell-interactive-mode-return)
+
+      (setq haskell-stylish-on-save t)
+
+      ;rebind inferior mode to interactive mode
+      (eval-after-load "haskell-mode"
+                       '(progn
+                          (define-key haskell-mode-map (kbd "C-c C-l") 'haskell-process-load-or-reload)
+                          (define-key haskell-mode-map (kbd "C-`") 'haskell-interactive-bring)
+                          (define-key haskell-mode-map (kbd "C-c C-t") 'haskell-process-do-type)
+                          (define-key haskell-mode-map (kbd "C-c C-i") 'haskell-process-do-info)
+                          (define-key haskell-mode-map (kbd "C-c C-c") 'haskell-process-cabal-build)
+                          (define-key haskell-mode-map (kbd "C-c C-k") 'haskell-interactive-mode-clear)
+                          (define-key haskell-mode-map (kbd "C-c c") 'haskell-process-cabal)
+                          (define-key haskell-mode-map (kbd "C-c i") 'haskell-mode-jump-to-def-or-tag)
+                          (define-key haskell-mode-map (kbd "C-c C-d") 'inferior-haskell-find-haddock)
+                          (define-key haskell-mode-map (kbd "SPC") 'haskell-mode-contextual-space)))
+      ;     (define-key haskell-cabal-mode-map (kbd "C-`") 'haskell-interactive-bring)
+      ;     (define-key haskell-cabal-mode-map (kbd "C-c C-k") 'haskell-interactive-mode-clear)
+      ;     (define-key haskell-cabal-mode-map (kbd "C-c C-c") 'haskell-process-cabal-build)
+      ;     (define-key haskell-cabal-mode-map (kbd "C-c c") 'haskell-process-cabal)))
+
+      ;; SNAP
+      (add-to-list 'auto-mode-alist '("\\.tpl\\'" . xml-mode))
   )
+
 
 ;; Custom variables
 
