@@ -8,7 +8,7 @@
  ;; Paths must have a trailing slash (ie. `~/.mycontribs/')
  dotspacemacs-configuration-layer-path '()
  ;; List of contribution to load.
- dotspacemacs-configuration-layers '(themes-megapack python auctex misc company-mode haskell)
+ dotspacemacs-configuration-layers '(themes-megapack auctex misc company-mode haskell)
  ;; If non nil the frame is maximized when Emacs starts up (Emacs 24.4+ only)
  dotspacemacs-fullscreen-at-startup nil
  ;; If non nil smooth scrolling (native-scrolling) is enabled. Smooth scrolling
@@ -60,68 +60,28 @@ This function is called at the very end of Spacemacs initialization."
   (setq flycheck-check-syntax-automatically '(save idle-change mode-enabled))
   ;; (setq global-auto-complete-mode 0)
 
-  (let ((font "Source Code Pro"))
-    (when (member font (font-family-list))
-      (pcase window-system
-        (`x (spacemacs/set-font font 10))
-        (other (spacemacs/set-font font 12)))))
-  (pcase window-system
-    (`x (menu-bar-mode 0))
-    (other (menu-bar-mode 1)))
+  (progn
+    ;; (print window-system)
+    (let ((font "Source Code Pro"))
+      (when (member font (font-family-list))
+        (pcase window-system
+          (`x (spacemacs/set-font font 10))
+          (other (spacemacs/set-font font 12)))))
+    (pcase window-system
+      (`x (menu-bar-mode 0))
+      (other (menu-bar-mode 1))))
 
-      (add-to-list 'evil-emacs-state-modes 'helm-mode)
-      ;;(define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up)
-      ;;(define-key evil-visual-state-map (kbd "C-u") 'evil-scroll-up)
-      ;;(define-key evil-insert-state-map (kbd "C-u")
-      ;; (lambda ()
-      ;;(interactive)
-      ;;(evil-delete (point-at-bol) (point))))
+  (add-to-list 'evil-emacs-state-modes 'helm-mode)
+  ;;(define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up)
+  ;;(define-key evil-visual-state-map (kbd "C-u") 'evil-scroll-up)
+  ;;(define-key evil-insert-state-map (kbd "C-u")
+  ;; (lambda ()
+  ;;(interactive)
+  ;;(evil-delete (point-at-bol) (point))))
 
-      ;; FLYCHECK
-      (add-hook 'after-init-hook #'global-flycheck-mode)
-
-      ;; HASKELL
-      ;(add-hook 'haskell-mode-hook 'interactive-haskell-mode)
-      (custom-set-variables
-        '(haskell-process-type 'cabal-repl)
-        '(haskell-process-suggest-remove-import-lines t)
-        '(haskell-process-auto-import-loaded-modules t)
-        '(haskell-process-log t))
-
-      (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
-      (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
-      ;; (eval-after-load "haskell-mode"
-      ;;   '(define-key haskell-mode-map (kbd "C-c C-c") 'haskell-compile))
-      ;; (eval-after-load "haskell-cabal"
-      ;;   '(define-key haskell-mode-map (kbd "C-c C-c") 'haskell-compile))
-
-      (evil-define-key 'insert haskell-interactive-mode-map (kbd "RET") 'haskell-interactive-mode-return)
-      (evil-define-key 'normal haskell-interactive-mode-map (kbd "RET") 'haskell-interactive-mode-return)
-
-      (setq haskell-stylish-on-save t)
-
-      ;rebind inferior mode to interactive mode
-      (eval-after-load "haskell-mode"
-                       '(progn
-                          (define-key haskell-mode-map (kbd "C-c C-l") 'haskell-process-load-or-reload)
-                          (define-key haskell-mode-map (kbd "C-`") 'haskell-interactive-bring)
-                          (define-key haskell-mode-map (kbd "C-c C-t") 'haskell-process-do-type)
-                          (define-key haskell-mode-map (kbd "C-c C-i") 'haskell-process-do-info)
-                          (define-key haskell-mode-map (kbd "C-c C-c") 'haskell-process-cabal-build)
-                          (define-key haskell-mode-map (kbd "C-c C-k") 'haskell-interactive-mode-clear)
-                          (define-key haskell-mode-map (kbd "C-c c") 'haskell-process-cabal)
-                          (define-key haskell-mode-map (kbd "C-c i") 'haskell-mode-jump-to-def-or-tag)
-                          (define-key haskell-mode-map (kbd "C-c C-d") 'inferior-haskell-find-haddock)
-                          (define-key haskell-mode-map (kbd "SPC") 'haskell-mode-contextual-space)))
-      ;     (define-key haskell-cabal-mode-map (kbd "C-`") 'haskell-interactive-bring)
-      ;     (define-key haskell-cabal-mode-map (kbd "C-c C-k") 'haskell-interactive-mode-clear)
-      ;     (define-key haskell-cabal-mode-map (kbd "C-c C-c") 'haskell-process-cabal-build)
-      ;     (define-key haskell-cabal-mode-map (kbd "C-c c") 'haskell-process-cabal)))
-
-      ;; SNAP
-      (add-to-list 'auto-mode-alist '("\\.tpl\\'" . xml-mode))
+  (add-hook 'after-init-hook #'global-flycheck-mode)
+  (global-linum-mode t)
   )
-
 
 ;; Custom variables
 
@@ -134,12 +94,22 @@ This function is called at the very end of Spacemacs initialization."
  '(ahs-case-fold-search nil)
  '(ahs-default-range (quote ahs-range-whole-buffer))
  '(ahs-idle-interval 0.25)
+ '(ahs-idle-timer 0 t)
  '(ahs-inhibit-face-list nil)
  '(blink-cursor-mode nil)
  '(column-number-mode t)
  '(custom-safe-themes
    (quote
     ("4217c670c803e8a831797ccf51c7e6f3a9e102cb9345e3662cc449f4c194ed7d" "1affe85e8ae2667fb571fc8331e1e12840746dae5c46112d5abb0c3a973f5f5a" "41b6698b5f9ab241ad6c30aea8c9f53d539e23ad4e3963abff4b57c0f8bf6730" default)))
+ '(haskell-interactive-popup-error nil)
+ '(haskell-interactive-popup-errors nil)
+ '(haskell-mode-hook
+   (quote
+    (turn-on-haskell-indentation interactive-haskell-mode turn-on-haskell-indentation)))
+ '(haskell-process-auto-import-loaded-modules t)
+ '(haskell-process-log t)
+ '(haskell-process-suggest-remove-import-lines t)
+ '(haskell-process-type (quote cabal-repl))
  '(ring-bell-function (quote ignore) t)
  '(show-paren-mode t)
  '(tool-bar-mode nil))
@@ -149,4 +119,6 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:background nil)))))
+ '(default ((t (:background nil))))
+ '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
+ '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
