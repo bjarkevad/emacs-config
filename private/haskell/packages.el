@@ -31,25 +31,31 @@ which require an initialization must be listed explicitly in the list.")
       (evil-define-key 'insert haskell-interactive-mode-map (kbd "RET") 'haskell-interactive-mode-return)
       (evil-define-key 'normal haskell-interactive-mode-map (kbd "RET") 'haskell-interactive-mode-return)
 
+      (setq spacemacs/key-binding-prefixes '(("mc" . "cabal")))
       (evil-leader/set-key
         "ml" 'haskell-process-load-or-reload
-        "m`" 'haskell-interactive-bring
         "mt" 'haskell-process-do-type
         "mi" 'haskell-process-do-info
         "mb" 'haskell-process-cabal-build
+        "mcc" 'haskell-process-cabal
+
+        "mcv" 'haskell-cabal-visit-file
+
+        "m`" 'haskell-interactive-bring
         "mk" 'haskell-interactive-mode-clear
-        "mc" 'haskell-process-cabal
+
         "mj" 'haskell-mode-jump-to-def-or-tag
+
         "md" 'inferior-haskell-find-haddock
         )
 
       (eval-after-load "haskell-mode"
         '(progn
-           (evil-leader/set-key "mc" 'haskell-compile)
+           (evil-leader/set-key "mC" 'haskell-compile)
            (define-key haskell-mode-map (kbd "SPC") 'haskell-mode-contextual-space)))
 
       (eval-after-load "haskell-cabal"
-        (evil-leader/set-key "mc" 'haskell-compile))
+        (evil-leader/set-key "mC" 'haskell-compile))
 
 
       ;; SNAP
