@@ -51,6 +51,7 @@
       "mz"  'haskell-interactive-switch
       "mj"  'haskell-mode-jump-to-def-or-tag
       "md"  'inferior-haskell-find-haddock
+      "mh"  'hoogle
       )
     (evil-leader/set-key-for-mode 'interactive-haskell-mode
       "mz"  'haskell-interactive-switch
