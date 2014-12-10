@@ -3,10 +3,16 @@
     haskell-mode
     company-ghc
     ghci-completion
+    ghc
     )
   )
 
 (defvar haskell-excluded-packages '())
+
+;((defun haskell/init-ghc ()
+ ;  (use-package ghc)
+  ; :init 
+  ; ))
 
 (defun haskell/init-haskell-mode ()
   (use-package haskell-mode 
@@ -21,6 +27,10 @@
        '(haskell-stylish-on-save t))
       )
 
+    (autoload 'ghc-init "ghc" nil t)
+    (autoload 'ghc-debug "ghc" nil t)
+
+    (add-hook 'haskell-mode-hook (lambda () (ghc-init)))
     (add-hook 'haskell-mode-hook 'turn-on-haskell-indention)
     (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
 
@@ -46,7 +56,14 @@
       "mC"  'haskell-compile
       )
 
-    ;; SNAP
-    (add-to-list 'auto-mode-alist '("\\.tpl\\'" . xml-mode))
+    ;; Heist templates
+    (add-to-list 'auto-mode-alist '("\\.tpl\\'" . web-mode))
     )
   )
+
+(defun haskell/init-company-ghc ()
+   (use-package ghc
+   :init 
+    (add-to-list 'company-backends 'company-ghc)
+    (ghc-comp-init)
+   ))
