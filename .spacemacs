@@ -108,6 +108,7 @@ This function is called at the very end of Spacemacs initialization."
     (turn-on-haskell-indentation interactive-haskell-mode turn-on-haskell-indentation)))
  '(haskell-process-auto-import-loaded-modules t)
  '(haskell-process-log t)
+ '(haskell-process-show-debug-tips nil)
  '(haskell-process-suggest-remove-import-lines t)
  '(haskell-process-type (quote cabal-repl))
  '(haskell-stylish-on-save t)

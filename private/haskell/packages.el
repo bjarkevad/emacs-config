@@ -48,8 +48,12 @@
       "mcv" 'haskell-cabal-visit-file
       "m`"  'haskell-interactive-bring
       "mk"  'haskell-interactive-mode-clear
+      "mz"  'haskell-interactive-switch
       "mj"  'haskell-mode-jump-to-def-or-tag
       "md"  'inferior-haskell-find-haddock
+      )
+    (evil-leader/set-key-for-mode 'interactive-haskell-mode
+      "mz"  'haskell-interactive-switch
       )
 
     (evil-leader/set-key-for-mode 'haskell-cabal
