@@ -29,6 +29,7 @@
 
     (setq spacemacs/key-binding-prefixes '(("mc" . "cabal")))
     (evil-leader/set-key-for-mode 'haskell-mode
+      "mC"  'haskell-compile
       "ml"  'haskell-process-load-or-reload
       "mt"  'haskell-process-do-type
       "mi"  'haskell-process-do-info
@@ -39,11 +40,10 @@
       "mk"  'haskell-interactive-mode-clear
       "mj"  'haskell-mode-jump-to-def-or-tag
       "md"  'inferior-haskell-find-haddock
-      "mC" 'haskell-compile
       )
 
     (evil-leader/set-key-for-mode 'haskell-cabal
-      "mC" 'haskell-compile
+      "mC"  'haskell-compile
       )
 
     ;; SNAP
