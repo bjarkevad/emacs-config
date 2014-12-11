@@ -116,6 +116,8 @@ This function is called at the very end of Spacemacs initialization."
  '(paradox-github-token t)
  '(ring-bell-function (quote ignore) t)
  '(show-paren-mode t)
+ '(smartparens-global-mode t)
+ '(sp-autoinsert-if-followed-by-word nil)
  '(tool-bar-mode nil))
 
 (custom-set-faces
@@ -125,4 +127,5 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(default ((t (:background nil))))
  '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
- '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
+ '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil))))
+ '(sp-pair-overlay-face ((t (:background "#444455")))))
