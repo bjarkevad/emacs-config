@@ -61,14 +61,29 @@
       "mC"  'haskell-compile
       )
 
+    (evil-leader/set-key-for-mode 'haskell-cabal-mode
+      "md" 'haskell-cabal-add-dependency
+      "mb" 'haskell-cabal-goto-benchmark-section
+      "me" 'haskell-cabal-goto-executable-section
+      "mt" 'haskell-cabal-goto-test-suite-section
+      "mm" 'haskell-cabal-goto-exposed-modules
+      "ml" 'haskell-cabal-goto-library-section
+      "mn" 'haskell-cabal-next-subsection
+      "mp" 'haskell-cabal-previous-subsection
+      "mN" 'haskell-cabal-next-section
+      "mP" 'haskell-cabal-previous-section
+      "mf" 'haskell-cabal-find-or-create-source-file
+      ;; "m="  'haskell-cabal-subsection-arrange-lines ;; Does a bad job, 'gg=G' works better
+      )
+
     ;; Heist templates
     (add-to-list 'auto-mode-alist '("\\.tpl\\'" . web-mode))
     )
   )
 
 (defun haskell/init-company-ghc ()
-   (use-package ghc
-   :init 
+  (use-package ghc
+    :init 
     (add-to-list 'company-backends 'company-ghc)
     (ghc-comp-init)
-   ))
+    ))
