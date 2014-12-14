@@ -52,6 +52,7 @@
       "mj"  'haskell-mode-jump-to-def-or-tag
       "md"  'inferior-haskell-find-haddock
       "mh"  'hoogle
+      "mH"  'hayoo
       )
     (evil-leader/set-key-for-mode 'interactive-haskell-mode
       "mz"  'haskell-interactive-switch
