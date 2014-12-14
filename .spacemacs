@@ -60,7 +60,7 @@ This function is called at the very end of Spacemacs initialization."
 
   ;; (setq global-auto-complete-mode 0)
 
-   (setq flycheck-check-syntax-automatically '(save idle-change mode-enabled))
+  (setq flycheck-check-syntax-automatically '(save idle-change mode-enabled))
   (progn
     ;; (print window-system)
     (let ((font "Source Code Pro"))
