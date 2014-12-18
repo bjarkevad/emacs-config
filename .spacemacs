@@ -1,4 +1,4 @@
-;; -*- mode: emacs-lisp -*-
+;;; -*- mode: emacs-lisp -*-
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
 
@@ -24,6 +24,9 @@
  ;; specified with an installed package.
  ;; Not used for now.
  dotspacemacs-default-package-repository nil
+
+ ;; dotspacemacs-maximized-at-startup t
+ dotspacemacs-fullscreen-at-startup t
  )
 
 ;; Functions
