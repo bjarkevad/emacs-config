@@ -1,4 +1,4 @@
-(defvar haskell-packages
+(defvar haskell-2-packages
   '(
     haskell-mode
     company-ghc

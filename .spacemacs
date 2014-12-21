@@ -8,7 +8,7 @@
  ;; Paths must have a trailing slash (ie. `~/.mycontribs/')
  dotspacemacs-configuration-layer-path '()
  ;; List of contribution to load.
- dotspacemacs-configuration-layers '(themes-megapack auctex misc company-mode haskell git)
+ dotspacemacs-configuration-layers '(themes-megapack misc auctex company-mode haskell git osx)
  ;; If non nil the frame is maximized when Emacs starts up (Emacs 24.4+ only)
  dotspacemacs-fullscreen-at-startup nil
  ;; If non nil smooth scrolling (native-scrolling) is enabled. Smooth scrolling
@@ -35,8 +35,7 @@
   "User initialization for Spacemacs. This function is called at the very
  startup."
   ;;(load-theme 'hc-zenburn)
-  )
-
+)
 (defun dotspacemacs/config ()
   "This is were you can ultimately override default Spacemacs configuration.
 This function is called at the very end of Spacemacs initialization."
@@ -63,6 +62,9 @@ This function is called at the very end of Spacemacs initialization."
 
   ;; (setq global-auto-complete-mode 0)
 
+  (evil-leader/set-key
+    "ass" 'multi-term-next)
+
   (setq flycheck-check-syntax-automatically '(save idle-change mode-enabled))
   (progn
     ;; (print window-system)
@@ -74,6 +76,8 @@ This function is called at the very end of Spacemacs initialization."
     (pcase window-system
       (`x (menu-bar-mode 0))
       (other (menu-bar-mode 1))))
+  (setq system-uses-terminfo nil)
+
 
   (add-to-list 'evil-emacs-state-modes 'helm-mode)
   ;;(define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up)
@@ -85,6 +89,8 @@ This function is called at the very end of Spacemacs initialization."
 
   (add-hook 'after-init-hook #'global-flycheck-mode)
   (global-linum-mode t)
+  (set-face-attribute 'fringe nil :background "#3F3F3F" :foreground "#3F3F3F")
+  (set-face-attribute 'linum nil :background "#3F3F3F")
   )
 
 ;; Custom variables
