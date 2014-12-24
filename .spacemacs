@@ -2,7 +2,7 @@
 
 (setq-default
  dotspacemacs-configuration-layer-path '()
- dotspacemacs-configuration-layers '(themes-megapack misc auctex company-mode haskell git osx)
+ dotspacemacs-configuration-layers '(themes-megapack auctex company-mode haskell git osx)
  dotspacemacs-fullscreen-at-startup t
  dotspacemacs-smooth-scrolling t
  dotspacemacs-feature-toggle-leader-on-jk nil
@@ -60,9 +60,20 @@ This function is called at the very end of Spacemacs initialization."
  '(ahs-inhibit-face-list nil)
  '(blink-cursor-mode nil)
  '(column-number-mode t)
+ '(company-idle-delay 0.0)
  '(custom-safe-themes
    (quote
     ("4217c670c803e8a831797ccf51c7e6f3a9e102cb9345e3662cc449f4c194ed7d" "1affe85e8ae2667fb571fc8331e1e12840746dae5c46112d5abb0c3a973f5f5a" "41b6698b5f9ab241ad6c30aea8c9f53d539e23ad4e3963abff4b57c0f8bf6730" default)))
+ '(flycheck-check-syntax-automatically (quote (save idle-change mode-enabled)))
+ '(flycheck-idle-change-delay 0.5)
+ '(guide-key/idle-delay 0.4)
+ '(haskell-interactive-popup-error nil)
+ '(haskell-notify-p t)
+ '(haskell-process-auto-import-loaded-modules t)
+ '(haskell-process-suggest-remove-import-lines t)
+ '(haskell-process-type (quote cabal-repl))
+ '(haskell-stylish-on-save nil)
+ '(haskell-tags-on-save t)
  '(paradox-github-token t)
  '(ring-bell-function (quote ignore) t)
  '(show-paren-mode t)
@@ -76,6 +87,8 @@ This function is called at the very end of Spacemacs initialization."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:background nil))))
+ '(company-tooltip-annotation ((t (:inherit company-tooltip :foreground "Brown"))))
  '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
  '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil))))
+ '(evil-search-highlight-persist-highlight-face ((t (:background "selectedMenuItemColor"))))
  '(sp-pair-overlay-face ((t (:background "#444455")))))
