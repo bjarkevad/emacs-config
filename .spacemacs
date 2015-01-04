@@ -42,6 +42,7 @@ This function is called at the very end of Spacemacs initialization."
 
   (global-linum-mode t)
   (linum-relative-toggle)
+  (spacemacs/toggle-golden-ratio)
 
   (set-face-attribute 'fringe nil :background "#3F3F3F" :foreground "#3F3F3F")
   (set-face-attribute 'linum nil :background "#3F3F3F")
