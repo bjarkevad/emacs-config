@@ -2,7 +2,7 @@
 
 (setq-default
  dotspacemacs-configuration-layer-path '()
- dotspacemacs-configuration-layers '(themes-megapack auctex company-mode haskell git osx)
+ dotspacemacs-configuration-layers '(themes-megapack auctex company-mode haskell git osx fasd)
  dotspacemacs-fullscreen-at-startup t
  dotspacemacs-smooth-scrolling t
  dotspacemacs-feature-toggle-leader-on-jk nil
@@ -19,6 +19,7 @@
   "This is were you can ultimately override default Spacemacs configuration.
 This function is called at the very end of Spacemacs initialization."
   (setq powerline-default-separator 'bar)
+  (setq magit-repo-dirs '("~/Workspace/"))
   (load-theme 'hc-zenburn)
 
   (evil-leader/set-key
@@ -27,11 +28,9 @@ This function is called at the very end of Spacemacs initialization."
   (setq flycheck-check-syntax-automatically '(save idle-change mode-enabled))
 
   (progn
-    (let ((font "Source Code Pro"))
-      (when (member font (font-family-list))
-        (pcase window-system
-          (`x (spacemacs/set-font font 10))
-          (other (spacemacs/set-font font 12)))))
+    (pcase window-system
+      (`x (spacemacs/set-font "Terminus" 9))
+      (other (spacemacs/set-font "Menlo" 12)))
     (pcase window-system
       (`x (menu-bar-mode 0))
       (other (menu-bar-mode 1))))
