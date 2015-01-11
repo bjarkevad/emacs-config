@@ -22,42 +22,39 @@
 This function is called at the very end of Spacemacs initialization."
   (setq powerline-default-separator 'bar)
   (setq magit-repo-dirs '("~/Workspace/"))
-
-  (progn
-    (pcase window-system
-      (other 
-       (pcase window-system
-         (`x   (progn
-                 (spacemacs/set-font "Terminus" 9)
-                 (menu-bar-mode 0)
-                 ))
-         (other (progn
-                  (menu-bar-mode 1)
-                  (spacemacs/set-font "Menlo" 12)
-                  (spacemacs/toggle-golden-ratio)
-                  ))))))
-
-  (evil-leader/set-key "TAB" 'spacemacs/alternate-buffer)
-
   (setq flycheck-check-syntax-automatically '(save idle-change mode-enabled))
-
   (setq system-uses-terminfo nil)
-  (add-to-list 'evil-emacs-state-modes 'helm-mode)
-  (add-hook 'after-init-hook #'global-flycheck-mode)
 
   (global-linum-mode t)
   (linum-relative-toggle)
+  (spacemacs/toggle-golden-ratio)
 
   (set-face-attribute 'fringe nil :background "#3F3F3F" :foreground "#3F3F3F")
   (set-face-attribute 'linum nil :background "#3F3F3F")
 
-  ;; (defun haskell-addons()
-  ;; )
+  (add-to-list 'evil-emacs-state-modes 'helm-mode)
+  (add-hook 'after-init-hook #'global-flycheck-mode)
 
-  ;; (eval-after-load 'haskell
-  ;;   haskell-addons
-  ;; )
+  (evil-leader/set-key "TAB" 'spacemacs/alternate-buffer)
 
+  (pcase window-system
+    (`x    (progn
+             (spacemacs/set-font "Termsyn" 11)
+             (menu-bar-mode 0)
+             ))
+    (other (progn
+             (spacemacs/set-font "Menlo" 12)
+             (menu-bar-mode 1)
+             ))
+    )
+
+  (defun haskell-addons()
+    (print "haskell addons loaded")
+    )
+
+  (eval-after-load "haskell"
+    'haskell-addons
+    )
 )
 
 (custom-set-variables
@@ -80,13 +77,13 @@ This function is called at the very end of Spacemacs initialization."
  '(flycheck-check-syntax-automatically (quote (save idle-change mode-enabled)))
  '(flycheck-idle-change-delay 0.5)
  '(guide-key/idle-delay 0.4)
- '(haskell-interactive-popup-error nil)
- '(haskell-notify-p t)
- '(haskell-process-auto-import-loaded-modules t)
- '(haskell-process-suggest-remove-import-lines t)
- '(haskell-process-type (quote cabal-repl))
- '(haskell-stylish-on-save nil)
- '(haskell-tags-on-save t)
+ ;; '(haskell-interactive-popup-error nil)
+ ;; '(haskell-notify-p t)
+ ;; '(haskell-process-auto-import-loaded-modules t)
+ ;; '(haskell-process-suggest-remove-import-lines t)
+ ;; '(haskell-process-type (quote cabal-repl))
+ ;; '(haskell-stylish-on-save nil)
+ ;; '(haskell-tags-on-save t)
  '(paradox-github-token t)
  '(ring-bell-function (quote ignore) t)
  '(show-paren-mode t)
