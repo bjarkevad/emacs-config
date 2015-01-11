@@ -7,8 +7,7 @@
  dotspacemacs-smooth-scrolling t
  dotspacemacs-feature-toggle-leader-on-jk nil
  ;; smartparens behaves badly 
- ;; git-gutter breaks linum
- dotspacemacs-excluded-packages '(smartparens git-gutter-fringe) 
+ dotspacemacs-excluded-packages '(smartparens) 
  dotspacemacs-default-package-repository nil
  dotspacemacs-default-theme 'hc-zenburn
  )
@@ -25,11 +24,7 @@ This function is called at the very end of Spacemacs initialization."
   (setq powerline-default-separator 'bar)
   (setq magit-repo-dirs '("~/Workspace/"))
 
-  (evil-leader/set-key
-    "ass" 'multi-term-next)
-
   (evil-leader/set-key "TAB" 'spacemacs/alternate-buffer)
-
   (setq flycheck-check-syntax-automatically '(save idle-change mode-enabled))
   (setq system-uses-terminfo nil)
 
@@ -71,9 +66,6 @@ This function is called at the very end of Spacemacs initialization."
  '(blink-cursor-mode nil)
  '(column-number-mode t)
  '(company-idle-delay 0.0)
- '(custom-safe-themes
-   (quote
-    ("4217c670c803e8a831797ccf51c7e6f3a9e102cb9345e3662cc449f4c194ed7d" "1affe85e8ae2667fb571fc8331e1e12840746dae5c46112d5abb0c3a973f5f5a" "41b6698b5f9ab241ad6c30aea8c9f53d539e23ad4e3963abff4b57c0f8bf6730" default)))
  '(flycheck-check-syntax-automatically (quote (save idle-change mode-enabled)))
  '(flycheck-idle-change-delay 0.5)
  '(guide-key/idle-delay 0.4)
