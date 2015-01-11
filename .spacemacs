@@ -6,7 +6,7 @@
  dotspacemacs-fullscreen-at-startup t
  dotspacemacs-smooth-scrolling t
  dotspacemacs-feature-toggle-leader-on-jk nil
- dotspacemacs-excluded-packages '() 
+ dotspacemacs-excluded-packages '(smartparens) 
  dotspacemacs-default-package-repository nil
  dotspacemacs-default-theme 'hc-zenburn
  )
@@ -47,7 +47,7 @@ This function is called at the very end of Spacemacs initialization."
              (menu-bar-mode 1)
              ))
     )
-)
+  )
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
