@@ -37,9 +37,6 @@ This function is called at the very end of Spacemacs initialization."
                   (spacemacs/toggle-golden-ratio)
                   ))))))
 
-  (evil-leader/set-key
-    "ass" 'multi-term-next)
-
   (evil-leader/set-key "TAB" 'spacemacs/alternate-buffer)
 
   (setq flycheck-check-syntax-automatically '(save idle-change mode-enabled))
