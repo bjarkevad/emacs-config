@@ -14,6 +14,7 @@
 (defun dotspacemacs/init ()
   "User initialization for Spacemacs. This function is called at the very
  startup."
+
   )
 
 (defun dotspacemacs/config ()
@@ -22,13 +23,6 @@ This function is called at the very end of Spacemacs initialization."
   (setq powerline-default-separator 'bar)
   (setq magit-repo-dirs '("~/Workspace/"))
 
-  (evil-leader/set-key
-    "ass" 'multi-term-next)
-
-  (evil-leader/set-key "TAB" 'spacemacs/alternate-buffer)
-
-  (setq flycheck-check-syntax-automatically '(save idle-change mode-enabled))
-
   (progn
     (pcase window-system
       (`x (spacemacs/set-font "Terminus" 9))
@@ -36,6 +30,13 @@ This function is called at the very end of Spacemacs initialization."
     (pcase window-system
       (`x (menu-bar-mode 0))
       (other (menu-bar-mode 1))))
+
+  (evil-leader/set-key
+    "ass" 'multi-term-next)
+
+  (evil-leader/set-key "TAB" 'spacemacs/alternate-buffer)
+
+  (setq flycheck-check-syntax-automatically '(save idle-change mode-enabled))
 
   (setq system-uses-terminfo nil)
   (add-to-list 'evil-emacs-state-modes 'helm-mode)
