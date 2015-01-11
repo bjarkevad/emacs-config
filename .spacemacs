@@ -2,12 +2,13 @@
 
 (setq-default
  dotspacemacs-configuration-layer-path '()
- dotspacemacs-configuration-layers '(themes-megapack auctex company-mode haskell git osx fasd)
+ dotspacemacs-configuration-layers '(auctex company-mode haskell git osx themes)
  dotspacemacs-fullscreen-at-startup t
  dotspacemacs-smooth-scrolling t
  dotspacemacs-feature-toggle-leader-on-jk nil
  dotspacemacs-excluded-packages '()
  dotspacemacs-default-package-repository nil
+ dotspacemacs-default-theme 'hc-zenburn
  )
 
 (defun dotspacemacs/init ()
@@ -20,10 +21,11 @@
 This function is called at the very end of Spacemacs initialization."
   (setq powerline-default-separator 'bar)
   (setq magit-repo-dirs '("~/Workspace/"))
-  (load-theme 'hc-zenburn)
 
   (evil-leader/set-key
     "ass" 'multi-term-next)
+
+  (evil-leader/set-key "TAB" 'spacemacs/alternate-buffer)
 
   (setq flycheck-check-syntax-automatically '(save idle-change mode-enabled))
 
