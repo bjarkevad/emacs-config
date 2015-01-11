@@ -9,6 +9,7 @@
  dotspacemacs-excluded-packages '(smartparens) 
  dotspacemacs-default-package-repository nil
  dotspacemacs-default-theme 'hc-zenburn
+ dotspacemacs-startup-banner 'doge
  )
 
 (defun dotspacemacs/init ()
