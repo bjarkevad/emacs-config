@@ -25,11 +25,17 @@ This function is called at the very end of Spacemacs initialization."
 
   (progn
     (pcase window-system
-      (`x (spacemacs/set-font "Terminus" 9))
-      (other (spacemacs/set-font "Menlo" 12)))
-    (pcase window-system
-      (`x (menu-bar-mode 0))
-      (other (menu-bar-mode 1))))
+      (other 
+       (pcase window-system
+         (`x   (progn
+                 (spacemacs/set-font "Terminus" 9)
+                 (menu-bar-mode 0)
+                 ))
+         (other (progn
+                  (menu-bar-mode 1)
+                  (spacemacs/set-font "Menlo" 12)
+                  (spacemacs/toggle-golden-ratio)
+                  ))))))
 
   (evil-leader/set-key
     "ass" 'multi-term-next)
@@ -44,11 +50,18 @@ This function is called at the very end of Spacemacs initialization."
 
   (global-linum-mode t)
   (linum-relative-toggle)
-  (spacemacs/toggle-golden-ratio)
 
   (set-face-attribute 'fringe nil :background "#3F3F3F" :foreground "#3F3F3F")
   (set-face-attribute 'linum nil :background "#3F3F3F")
-  )
+
+  ;; (defun haskell-addons()
+  ;; )
+
+  ;; (eval-after-load 'haskell
+  ;;   haskell-addons
+  ;; )
+
+)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
