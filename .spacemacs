@@ -6,7 +6,9 @@
  dotspacemacs-fullscreen-at-startup t
  dotspacemacs-smooth-scrolling t
  dotspacemacs-feature-toggle-leader-on-jk nil
- dotspacemacs-excluded-packages '(smartparens)
+ ;; smartparens behaves badly 
+ ;; git-gutter breaks linum
+ dotspacemacs-excluded-packages '(smartparens git-gutter-fringe) 
  dotspacemacs-default-package-repository nil
  dotspacemacs-default-theme 'hc-zenburn
  )
@@ -38,7 +40,7 @@ This function is called at the very end of Spacemacs initialization."
   (set-face-attribute 'fringe nil :background "#3F3F3F" :foreground "#3F3F3F")
   (set-face-attribute 'linum nil :background "#3F3F3F")
 
-  (add-to-list 'evil-emacs-state-modes 'helm-mode)
+  ;; (add-to-list 'evil-emacs-state-modes 'helm-mode)
   (add-hook 'after-init-hook #'global-flycheck-mode)
 
   (evil-leader/set-key "TAB" 'spacemacs/alternate-buffer)
@@ -52,14 +54,6 @@ This function is called at the very end of Spacemacs initialization."
              (spacemacs/set-font "Menlo" 12)
              (menu-bar-mode 1)
              ))
-    )
-
-  (defun haskell-addons()
-    (print "haskell addons loaded")
-    )
-
-  (eval-after-load "haskell"
-    'haskell-addons
     )
 )
 
@@ -83,17 +77,9 @@ This function is called at the very end of Spacemacs initialization."
  '(flycheck-check-syntax-automatically (quote (save idle-change mode-enabled)))
  '(flycheck-idle-change-delay 0.5)
  '(guide-key/idle-delay 0.4)
- ;; '(haskell-interactive-popup-error nil)
- ;; '(haskell-notify-p t)
- ;; '(haskell-process-auto-import-loaded-modules t)
- ;; '(haskell-process-suggest-remove-import-lines t)
- ;; '(haskell-process-type (quote cabal-repl))
- ;; '(haskell-stylish-on-save nil)
- ;; '(haskell-tags-on-save t)
  '(paradox-github-token t)
  '(ring-bell-function (quote ignore) t)
  '(show-paren-mode t)
- '(smartparens-global-mode t)
  '(sp-autoinsert-if-followed-by-word nil)
  '(tool-bar-mode nil))
 
