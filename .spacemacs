@@ -6,7 +6,7 @@
  dotspacemacs-fullscreen-at-startup t
  dotspacemacs-smooth-scrolling t
  dotspacemacs-feature-toggle-leader-on-jk nil
- dotspacemacs-excluded-packages '()
+ dotspacemacs-excluded-packages '(smartparens)
  dotspacemacs-default-package-repository nil
  dotspacemacs-default-theme 'hc-zenburn
  )
@@ -14,7 +14,7 @@
 (defun dotspacemacs/init ()
   "User initialization for Spacemacs. This function is called at the very
  startup."
-
+  (add-to-list 'exec-path "~/.cabal/bin/")
   )
 
 (defun dotspacemacs/config ()
@@ -22,6 +22,12 @@
 This function is called at the very end of Spacemacs initialization."
   (setq powerline-default-separator 'bar)
   (setq magit-repo-dirs '("~/Workspace/"))
+
+  (evil-leader/set-key
+    "ass" 'multi-term-next)
+
+  (evil-leader/set-key "TAB" 'spacemacs/alternate-buffer)
+
   (setq flycheck-check-syntax-automatically '(save idle-change mode-enabled))
   (setq system-uses-terminfo nil)
 
