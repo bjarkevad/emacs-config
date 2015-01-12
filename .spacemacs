@@ -6,10 +6,10 @@
  dotspacemacs-fullscreen-at-startup t
  dotspacemacs-smooth-scrolling t
  dotspacemacs-feature-toggle-leader-on-jk nil
- dotspacemacs-excluded-packages '(smartparens) 
+ dotspacemacs-excluded-packages '() 
  dotspacemacs-default-package-repository nil
  dotspacemacs-default-theme 'hc-zenburn
- dotspacemacs-startup-banner 'doge
+ ;;dotspacemacs-startup-banner 'doge
  )
 
 (defun dotspacemacs/init ()
