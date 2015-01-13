@@ -3,6 +3,7 @@
 (setq-default
  dotspacemacs-configuration-layer-path '()
  dotspacemacs-configuration-layers '(auctex company-mode haskell git osx themes)
+ dotspacemacs-fullscreen-use-non-native t
  dotspacemacs-fullscreen-at-startup t
  dotspacemacs-smooth-scrolling t
  dotspacemacs-feature-toggle-leader-on-jk nil
