@@ -8,7 +8,6 @@
  dotspacemacs-excluded-packages '() 
  dotspacemacs-default-package-repository nil
  dotspacemacs-default-theme 'hc-zenburn
- ;;dotspacemacs-startup-banner 'doge
  )
 
 (if (equal window-system `mac)
