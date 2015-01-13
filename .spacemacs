@@ -11,7 +11,7 @@
  ;;dotspacemacs-startup-banner 'doge
  )
 
-(if (equal window-system `darwin)
+(if (equal window-system `mac)
     (setq-default
      dotspacemacs-fullscreen-use-non-native t
      dotspacemacs-fullscreen-at-startup t)
