@@ -7,7 +7,7 @@
  dotspacemacs-feature-toggle-leader-on-jk nil
  dotspacemacs-excluded-packages '() 
  dotspacemacs-default-package-repository nil
- dotspacemacs-default-theme 'hc-zenburn
+ dotspacemacs-themes '(hc-zenburn)
  )
 
 (if (equal window-system `mac)
