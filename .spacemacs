@@ -2,7 +2,7 @@
 
 (setq-default
  dotspacemacs-configuration-layer-path '()
- dotspacemacs-configuration-layers '(auctex company-mode haskell git osx themes)
+ dotspacemacs-configuration-layers '(auctex company-mode haskell git osx themes misc)
  dotspacemacs-smooth-scrolling t
  dotspacemacs-feature-toggle-leader-on-jk nil
  dotspacemacs-excluded-packages '() 
@@ -10,11 +10,23 @@
  dotspacemacs-themes '(hc-zenburn)
  )
 
-(if (equal window-system `mac)
-    (setq-default
-     dotspacemacs-fullscreen-use-non-native t
-     dotspacemacs-fullscreen-at-startup t)
-  ) 
+(pcase window-system
+  (`x
+   (setq-default
+    dotspacemacs-default-font '("Termsyn"
+                                :size 14
+                                :weight normal
+                                :width normal
+                                :powerline-offset 2)))
+  (`mac
+   (setq-default
+    dotspacemacs-fullscreen-use-non-native t
+    dotspacemacs-fullscreen-at-startup t
+    dotspacemacs-default-font '("Menlo"
+                                :size 12
+                                :weight normal
+                                :width normal
+                                :powerline-offset 2))))
 
 (defun dotspacemacs/init ()
   "User initialization for Spacemacs. This function is called at the very
@@ -43,14 +55,8 @@ This function is called at the very end of Spacemacs initialization."
   (add-to-list 'evil-emacs-state-modes 'helm-mode)
 
   (pcase window-system
-    (`x    (progn
-             (spacemacs/set-font "Termsyn" 11)
-             (menu-bar-mode 0)
-             ))
-    (other (progn
-             (spacemacs/set-font "Menlo" 12)
-             (menu-bar-mode 1)
-             ))
+    (`x (progn (menu-bar-mode 0)))
+    (`mac (progn (menu-bar-mode 1)))
     )
   )
 
@@ -70,19 +76,25 @@ This function is called at the very end of Spacemacs initialization."
  '(company-idle-delay 0.0)
  '(flycheck-idle-change-delay 0.5)
  '(guide-key/idle-delay 0.4)
+ '(haskell-interactive-popup-error nil)
+ '(haskell-notify-p t)
+ '(haskell-process-auto-import-loaded-modules t)
+ '(haskell-process-suggest-remove-import-lines t)
+ '(haskell-process-type (quote auto))
+ '(haskell-stylish-on-save nil)
+ '(haskell-tags-on-save t)
  '(paradox-github-token t)
  '(ring-bell-function (quote ignore) t)
  '(show-paren-mode t)
  '(sp-autoinsert-if-followed-by-same 0)
- '(sp-autoinsert-if-followed-by-word nil)
- '(tool-bar-mode nil))
+ '(sp-autoinsert-if-followed-by-word nil))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:background nil))))
+ ;; '(default ((t (:inherit nil :stipple nil :background "#313131" :foreground "#DCDCCC" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 113 :width normal :foundry "Misc" :family "Termsyn"))))
  '(company-tooltip-annotation ((t (:inherit company-tooltip :foreground "Brown"))))
  '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
  '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil))))
