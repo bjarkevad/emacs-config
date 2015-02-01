@@ -2,7 +2,7 @@
 
 (setq-default
  dotspacemacs-configuration-layer-path '()
- dotspacemacs-configuration-layers '(auctex company-mode haskell git osx themes misc)
+ dotspacemacs-configuration-layers '(auctex company-mode haskell git osx csharp themes )
  dotspacemacs-smooth-scrolling t
  dotspacemacs-feature-toggle-leader-on-jk nil
  dotspacemacs-excluded-packages '() 
@@ -32,6 +32,7 @@
   "User initialization for Spacemacs. This function is called at the very
  startup."
   (add-to-list 'exec-path "~/.cabal/bin/")
+  (add-to-list 'exec-path "~/.OmniSharp/")
   )
 
 (defun dotspacemacs/config ()
@@ -73,6 +74,7 @@ This function is called at the very end of Spacemacs initialization."
  '(ahs-inhibit-face-list nil)
  '(blink-cursor-mode nil)
  '(column-number-mode t)
+ '(company-auto-complete t)
  '(company-idle-delay 0.0)
  '(flycheck-idle-change-delay 0.5)
  '(guide-key/idle-delay 0.4)
@@ -94,7 +96,7 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- ;; '(default ((t (:inherit nil :stipple nil :background "#313131" :foreground "#DCDCCC" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 113 :width normal :foundry "Misc" :family "Termsyn"))))
+ '(default ((t (:foreground "#DCDCCC" :background "#313131"))))
  '(company-tooltip-annotation ((t (:inherit company-tooltip :foreground "Brown"))))
  '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
  '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil))))
