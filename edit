@@ -1,2 +1,2 @@
 #!/bin/bash
-exec emacsclient --alternate-editor="" -c "$@"
+exec /usr/local/Cellar/emacs-mac/emacs-24.4-mac-5.2/bin/emacsclient --alternate-editor="" "$@"

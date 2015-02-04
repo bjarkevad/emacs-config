@@ -2,7 +2,7 @@
 
 (setq-default
  dotspacemacs-configuration-layer-path '()
- dotspacemacs-configuration-layers '(auctex company-mode haskell git osx csharp themes )
+ dotspacemacs-configuration-layers '(auctex company-mode haskell git osx themes csharp java)
  dotspacemacs-smooth-scrolling t
  dotspacemacs-feature-toggle-leader-on-jk nil
  dotspacemacs-excluded-packages '() 
@@ -22,7 +22,7 @@
    (setq-default
     dotspacemacs-fullscreen-use-non-native t
     dotspacemacs-fullscreen-at-startup t
-    dotspacemacs-default-font '("Menlo"
+    dotspacemacs-default-font '("Source Code Pro"
                                 :size 12
                                 :weight normal
                                 :width normal
@@ -31,8 +31,8 @@
 (defun dotspacemacs/init ()
   "User initialization for Spacemacs. This function is called at the very
  startup."
-  (add-to-list 'exec-path "~/.cabal/bin/")
   (add-to-list 'exec-path "~/.OmniSharp/")
+  (add-to-list 'exec-path "~/.cabal/bin/")
   )
 
 (defun dotspacemacs/config ()
@@ -43,6 +43,7 @@ This function is called at the very end of Spacemacs initialization."
   (setq powerline-default-separator 'arrow)
   (setq magit-repo-dirs '("~/Workspace/"))
   (setq system-uses-terminfo nil)
+  (setq omnisharp-server-executable-path "~/.OmniSharp/OmniSharpServer")
 
   (evil-leader/set-key "TAB" 'spacemacs/alternate-buffer)
 
@@ -56,8 +57,13 @@ This function is called at the very end of Spacemacs initialization."
   (add-to-list 'evil-emacs-state-modes 'helm-mode)
 
   (pcase window-system
-    (`x (progn (menu-bar-mode 0)))
-    (`mac (progn (menu-bar-mode 1)))
+    (`x    (progn
+             (menu-bar-mode 0)
+             ))
+    (other (progn
+             (menu-bar-mode 1)
+             (spacemacs/mode-line-battery-info-toggle)
+             ))
     )
   )
 
@@ -85,6 +91,9 @@ This function is called at the very end of Spacemacs initialization."
  '(haskell-process-type (quote auto))
  '(haskell-stylish-on-save nil)
  '(haskell-tags-on-save t)
+ '(org-agenda-files
+   (quote
+    ("~/Google Drive/School/AI/ai.org" "~/Google Drive/School/2.org")))
  '(paradox-github-token t)
  '(ring-bell-function (quote ignore) t)
  '(show-paren-mode t)
