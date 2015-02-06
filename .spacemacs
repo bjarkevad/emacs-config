@@ -2,7 +2,7 @@
 
 (setq-default
  dotspacemacs-configuration-layer-path '()
- dotspacemacs-configuration-layers '(auctex company-mode haskell git osx themes csharp)
+ dotspacemacs-configuration-layers '(auctex company-mode haskell git osx themes csharp misc)
  dotspacemacs-smooth-scrolling t
  dotspacemacs-feature-toggle-leader-on-jk nil
  dotspacemacs-excluded-packages '() 
@@ -38,6 +38,27 @@
 (defun dotspacemacs/config ()
   "This is were you can ultimately override default Spacemacs configuration.
 This function is called at the very end of Spacemacs initialization."
+
+  
+  (setq load-path (cons "~/.emacsprivate/02263/" load-path))
+  (load "rsltc.el")
+  (load "rsl-mode.el")
+  (load "rslconvert.el")
+
+  (defun rsl2latex ()
+    "Do rslatex on buffer"
+    (interactive)
+    (do-latex))
+
+  (defun latex2rsl ()
+    "Undo rslatex on buffer"
+    (interactive)
+    (undo-latex))
+
+  (evil-leader/set-key-for-mode 'rsl-mode
+    "ml" 'rsl2latex
+    "mL" 'latex2rsl)
+
   (add-hook 'after-init-hook #'global-flycheck-mode)
 
   (setq powerline-default-separator 'arrow)
@@ -93,7 +114,7 @@ This function is called at the very end of Spacemacs initialization."
  '(haskell-tags-on-save t)
  '(org-agenda-files
    (quote
-    ("~/Google Drive/School/AI/ai.org" "~/Google Drive/School/2.org")))
+    ("~/Google Drive/notes.org" "~/Google Drive/School/AI/ai.org" "~/Google Drive/School/2.org")))
  '(paradox-github-token t)
  '(ring-bell-function (quote ignore) t)
  '(show-paren-mode t)
