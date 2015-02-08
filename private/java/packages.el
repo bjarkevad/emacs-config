@@ -37,7 +37,7 @@ which require an initialization must be listed explicitly in the list.")
   (require 'company-emacs-eclim)
 
   (add-hook 'java-mode-hook 'eclim-mode)
-  ;;(eval-after-load 'company 'company-emacs-eclim-setup)
+  ;; (eval-after-load 'company 'company-emacs-eclim-setup)
   (setq eclim-eclipse-dir "~/Applications/eclipse")
   (setq eclim-executable "~/Applications/eclipse/eclim")
   (setq help-at-pt-display-when-idle t)

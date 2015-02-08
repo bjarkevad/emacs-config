@@ -2,7 +2,7 @@
 
 (setq-default
  dotspacemacs-configuration-layer-path '()
- dotspacemacs-configuration-layers '(auctex company-mode haskell git osx themes csharp misc)
+ dotspacemacs-configuration-layers '(auctex company-mode haskell git osx themes)
  dotspacemacs-smooth-scrolling t
  dotspacemacs-feature-toggle-leader-on-jk nil
  dotspacemacs-excluded-packages '() 
@@ -38,7 +38,7 @@
 (defun dotspacemacs/config ()
   "This is were you can ultimately override default Spacemacs configuration.
 This function is called at the very end of Spacemacs initialization."
-
+  ;;(company-emacs-eclim-setup)
   
   (setq load-path (cons "~/.emacsprivate/02263/" load-path))
   (load "rsltc.el")
@@ -67,6 +67,7 @@ This function is called at the very end of Spacemacs initialization."
   (setq omnisharp-server-executable-path "~/.OmniSharp/OmniSharpServer")
 
   (evil-leader/set-key "TAB" 'spacemacs/alternate-buffer)
+  (evil-define-key 'normal evil-org-mode-map "O" 'evil-open-above)
 
   (global-linum-mode t)
   (linum-relative-toggle)
@@ -100,10 +101,8 @@ This function is called at the very end of Spacemacs initialization."
  '(ahs-idle-timer 0 t)
  '(ahs-inhibit-face-list nil)
  '(blink-cursor-mode nil)
- '(column-number-mode t)
- '(company-auto-complete t)
- '(company-idle-delay 0.0)
  '(flycheck-idle-change-delay 0.5)
+ '(gud-gdb-command-name "gdb --annotate=1")
  '(guide-key/idle-delay 0.4)
  '(haskell-interactive-popup-error nil)
  '(haskell-notify-p t)
@@ -112,14 +111,15 @@ This function is called at the very end of Spacemacs initialization."
  '(haskell-process-type (quote auto))
  '(haskell-stylish-on-save nil)
  '(haskell-tags-on-save t)
+ '(large-file-warning-threshold nil)
  '(org-agenda-files
    (quote
     ("~/Google Drive/notes.org" "~/Google Drive/School/AI/ai.org" "~/Google Drive/School/2.org")))
  '(paradox-github-token t)
  '(ring-bell-function (quote ignore) t)
- '(show-paren-mode t)
- '(sp-autoinsert-if-followed-by-same 0)
- '(sp-autoinsert-if-followed-by-word nil))
+ '(show-paren-mode nil)
+ '(sp-autoescape-string-quote nil)
+ '(sp-autoskip-opening-pair nil))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
