@@ -2,7 +2,7 @@
 
 (setq-default
  dotspacemacs-configuration-layer-path '()
- dotspacemacs-configuration-layers '(auctex company-mode haskell git osx themes)
+ dotspacemacs-configuration-layers '(auctex company-mode haskell git osx themes scala)
  dotspacemacs-smooth-scrolling t
  dotspacemacs-feature-toggle-leader-on-jk nil
  dotspacemacs-excluded-packages '() 
@@ -87,6 +87,7 @@ This function is called at the very end of Spacemacs initialization."
              (spacemacs/mode-line-battery-info-toggle)
              ))
     )
+
   )
 
 (custom-set-variables
@@ -101,7 +102,10 @@ This function is called at the very end of Spacemacs initialization."
  '(ahs-idle-timer 0 t)
  '(ahs-inhibit-face-list nil)
  '(blink-cursor-mode nil)
+ '(company-idle-delay 0.0)
+ '(evil-search-highlight-persist t)
  '(flycheck-idle-change-delay 0.5)
+ '(global-evil-search-highlight-persist t)
  '(gud-gdb-command-name "gdb --annotate=1")
  '(guide-key/idle-delay 0.4)
  '(haskell-interactive-popup-error nil)
@@ -114,12 +118,16 @@ This function is called at the very end of Spacemacs initialization."
  '(large-file-warning-threshold nil)
  '(org-agenda-files
    (quote
-    ("~/Google Drive/notes.org" "~/Google Drive/School/AI/ai.org" "~/Google Drive/School/2.org")))
+    ("~/ITM/plzcome/plzcome.org" "~/Google Drive/notes.org" "~/Google Drive/School/AI/ai.org" "~/Google Drive/School/2.org")))
+ '(org-clock-continuously t)
+ '(org-clock-idle-time 15)
+ '(org-clock-persist t)
  '(paradox-github-token t)
  '(ring-bell-function (quote ignore) t)
  '(show-paren-mode nil)
  '(sp-autoescape-string-quote nil)
- '(sp-autoskip-opening-pair nil))
+ '(sp-autoskip-opening-pair nil)
+ '(sp-cancel-autoskip-on-backward-movement nil))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
