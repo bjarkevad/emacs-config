@@ -2,7 +2,7 @@
 
 (setq-default
  dotspacemacs-configuration-layer-path '()
- dotspacemacs-configuration-layers '(auctex company-mode haskell git osx themes scala)
+ dotspacemacs-configuration-layers '(auctex company-mode haskell git osx themes scala misc)
  dotspacemacs-smooth-scrolling t
  dotspacemacs-feature-toggle-leader-on-jk nil
  dotspacemacs-excluded-packages '() 
@@ -79,6 +79,15 @@ This function is called at the very end of Spacemacs initialization."
   (add-to-list 'evil-emacs-state-modes 'helm-mode)
 
   ;;(setq projectile-switch-project-action 'neotree-projectile-action)
+
+;;  (defun nxtoff-database()
+;;    (interactive)
+;;    (sql-postgres)
+;;    (sql-set-product "postgres")
+;;    (sql-set-sqli-buffer)
+;;    )
+;;
+  (add-hook 'sql-mode-hook 'edbi-minor-mode)
 
   (defun neotree-find-project-root ()
     (interactive)
