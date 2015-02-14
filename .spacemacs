@@ -40,24 +40,24 @@
 This function is called at the very end of Spacemacs initialization."
   ;;(company-emacs-eclim-setup)
   
-  (setq load-path (cons "~/.emacsprivate/02263/" load-path))
-  (load "rsltc.el")
-  (load "rsl-mode.el")
-  (load "rslconvert.el")
+  ;; (setq load-path (cons "~/.emacsprivate/02263/" load-path))
+  ;; (load "rsltc.el")
+  ;; (load "rsl-mode.el")
+  ;; (load "rslconvert.el")
 
-  (defun rsl2latex ()
-    "Do rslatex on buffer"
-    (interactive)
-    (do-latex))
+  ;; (defun rsl2latex ()
+  ;;   "Do rslatex on buffer"
+  ;;   (interactive)
+  ;;   (do-latex))
 
-  (defun latex2rsl ()
-    "Undo rslatex on buffer"
-    (interactive)
-    (undo-latex))
+  ;; (defun latex2rsl ()
+  ;;   "Undo rslatex on buffer"
+  ;;   (interactive)
+  ;;   (undo-latex))
 
-  (evil-leader/set-key-for-mode 'rsl-mode
-    "ml" 'rsl2latex
-    "mL" 'latex2rsl)
+  ;; (evil-leader/set-key-for-mode 'rsl-mode
+  ;;   "ml" 'rsl2latex
+  ;;   "mL" 'latex2rsl)
 
   (add-hook 'after-init-hook #'global-flycheck-mode)
 
@@ -77,6 +77,14 @@ This function is called at the very end of Spacemacs initialization."
   (set-face-attribute 'linum nil :background "#3F3F3F")
 
   (add-to-list 'evil-emacs-state-modes 'helm-mode)
+
+  (setq projectile-switch-project-action 'neotree-projectile-action)
+
+  (defun neotree-find-project-root ()
+    (interactive)
+    (neotree-find (projectile-project-root)))
+
+  (evil-leader/set-key "fT" 'neotree-find-project-root)
 
   (pcase window-system
     (`x    (progn
