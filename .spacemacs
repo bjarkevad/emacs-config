@@ -118,12 +118,15 @@ This function is called at the very end of Spacemacs initialization."
  '(large-file-warning-threshold nil)
  '(org-agenda-files
    (quote
-    ("~/ITM/plzcome/plzcome.org" "~/Google Drive/notes.org" "~/Google Drive/School/AI/ai.org" "~/Google Drive/School/2.org")))
+    ("~/Google Drive/School/IPD/ipd.org" "~/Google Drive/School/FA/fa.org" "~/ITM/plzcome/plzcome.org" "~/Google Drive/notes.org" "~/Google Drive/School/AI/ai.org" "~/Google Drive/School/2.org")))
  '(org-clock-continuously t)
  '(org-clock-idle-time 15)
  '(org-clock-persist t)
  '(paradox-github-token t)
  '(ring-bell-function (quote ignore) t)
+ '(scala-indent:align-forms t)
+ '(scala-indent:align-parameters t)
+ '(scala-indent:default-run-on-strategy scala-indent:operator-strategy)
  '(show-paren-mode nil)
  '(sp-autoescape-string-quote nil)
  '(sp-autoskip-opening-pair nil)
