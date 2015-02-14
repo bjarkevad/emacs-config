@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+#name : funtest
+#key : funtest
+#contributor : Bjarke Vad
+# --
+test("${1:Description}") {
+  assert(${2:false})
+}

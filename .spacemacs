@@ -78,7 +78,7 @@ This function is called at the very end of Spacemacs initialization."
 
   (add-to-list 'evil-emacs-state-modes 'helm-mode)
 
-  (setq projectile-switch-project-action 'neotree-projectile-action)
+  ;;(setq projectile-switch-project-action 'neotree-projectile-action)
 
   (defun neotree-find-project-root ()
     (interactive)
@@ -111,6 +111,11 @@ This function is called at the very end of Spacemacs initialization."
  '(ahs-inhibit-face-list nil)
  '(blink-cursor-mode nil)
  '(company-idle-delay 0.0)
+ '(ensime-goto-test-config-defaults
+   (quote
+    (:test-class-names-fn ensime-goto-test--test-class-names :test-class-suffixes
+                          ("Test" "Spec" "Specification" "Check")
+                          :impl-class-name-fn ensime-goto-test--impl-class-name :impl-to-test-dir-fn ensime-goto-test--impl-to-test-dir :is-test-dir-fn ensime-goto-test--is-test-dir :test-template-fn ensime-goto-test--test-template-scalatest-2)))
  '(evil-search-highlight-persist t)
  '(flycheck-idle-change-delay 0.5)
  '(global-evil-search-highlight-persist t)

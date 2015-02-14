@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+#name : funtestin
+#key : funtestin
+#contributor : Bjarke Vad
+# --
+test("${1:Description}") {
+  intercept[${2:Exception type}] {
+    $0
+  }
+}
