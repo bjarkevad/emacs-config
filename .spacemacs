@@ -80,20 +80,14 @@ This function is called at the very end of Spacemacs initialization."
 
   ;;(setq projectile-switch-project-action 'neotree-projectile-action)
 
-;;  (defun nxtoff-database()
-;;    (interactive)
-;;    (sql-postgres)
-;;    (sql-set-product "postgres")
-;;    (sql-set-sqli-buffer)
-;;    )
-;;
-  (add-hook 'sql-mode-hook 'edbi-minor-mode)
 
   (defun neotree-find-project-root ()
     (interactive)
     (neotree-find (projectile-project-root)))
 
   (evil-leader/set-key "fT" 'neotree-find-project-root)
+
+  (setq helm-prevent-escaping-from-minibuffer t)
 
   (pcase window-system
     (`x    (progn
@@ -105,6 +99,61 @@ This function is called at the very end of Spacemacs initialization."
              ))
     )
 
+  ;; SQL
+  (add-hook 'sql-mode-hook 'edbi-minor-mode)
+  (add-hook 'sql-interactive-mode-hook
+            (lambda ()
+              (toggle-truncate-lines t)))
+
+  ;; NXTOFF
+
+  ; set default DB
+  (setq sql-postgres-login-params
+        '((user :default "postgres")
+          (database :default "nxtoff")
+          (server :default "localhost")
+          (post :default 5432)
+          ))
+  
+  (setq sql-connection-alist
+        '((nxtoff-test (sql-product 'postgres)
+                       (sql-port 5432)
+                       (sql-server "localhost")
+                       (sql-user "postgres")
+                       (sql-password "password")
+                       (sql-database "nxtoff-test")
+                       )
+        (nxtoff-prod (sql-product 'postgres)
+                     (sql-port 5432)
+                     (sql-server "localhost")
+                     (sql-user "postgres")
+                     (sql-password "password")
+                     (sql-database "nxtoff-prod")
+                     )))
+
+  (defun nxtoff-db/test ()
+    (interactive)
+    (my-sql-connect 'postgres 'nxtoff-test))
+
+  (defun my-sql-connect (product connection)
+    (setq sql-product product)
+    (sql-connect connection))
+
+  (defvar database-servers-list
+    '(("nxtoff-test" nxtoff-db/test))
+    "Alist of server name and the function to connect")
+
+  (defun helm-connect-database (func)
+    "Connect to the input server using database-servers-list"
+    (interactive
+     (helm-comp-read "Select server: " database-servers-list))
+    (funcall func)
+    )
+
+  (evil-leader/set-key
+    "od" 'helm-connect-database
+    "oa" 'sql-set-sqli-buffer
+    )
   )
 
 (custom-set-variables

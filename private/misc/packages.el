@@ -3,6 +3,7 @@
     ;;org-trello
     edbi
     company-edbi
+;;    edbi-database-url
     edbi-minor-mode
     )
   "List of all packages to install and/or initialize. Built-in packages

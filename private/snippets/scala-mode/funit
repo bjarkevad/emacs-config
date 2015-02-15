@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+#name : FunSpec it
+#key : funit
+#contributor : Bjarke Vad
+# --
+it("$1") {
+  ${2:pending}
+}
