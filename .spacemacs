@@ -71,7 +71,7 @@ This function is called at the very end of Spacemacs initialization."
 
   (global-linum-mode t)
   (linum-relative-toggle)
-  (spacemacs/toggle-golden-ratio)
+  ;; (spacemacs/toggle-golden-ratio)
 
   (set-face-attribute 'fringe nil :background "#3F3F3F" :foreground "#3F3F3F")
   (set-face-attribute 'linum nil :background "#3F3F3F")
@@ -155,8 +155,15 @@ This function is called at the very end of Spacemacs initialization."
     "oa" 'sql-set-sqli-buffer
     )
 
+  (defun gen-ensime ()
+     (interactive)
+     (sbt-command "gen-ensime")
+     )
+
   (evil-leader/set-key-for-mode 'scala-mode
-    "mnq" 'ensime-shutdown)
+    "mnq" 'ensime-shutdown
+    "mng" 'gen-ensime
+    )
 
   (evil-leader/set-key
     "of" 'make-frame)
