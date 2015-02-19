@@ -119,16 +119,16 @@ This function is called at the very end of Spacemacs initialization."
         '((nxtoff-test (sql-product 'postgres)
                        (sql-port 5432)
                        (sql-server "localhost")
-                       (sql-user "postgres")
+                       (sql-user "nxtoff")
                        (sql-password "password")
-                       (sql-database "nxtoff-test")
+                       (sql-database "nxtoff_test")
                        )
         (nxtoff-prod (sql-product 'postgres)
                      (sql-port 5432)
                      (sql-server "localhost")
-                     (sql-user "postgres")
+                     (sql-user "nxtoff")
                      (sql-password "password")
-                     (sql-database "nxtoff-prod")
+                     (sql-database "nxtoff_prod")
                      )))
 
   (defun nxtoff-db/test ()
@@ -154,6 +154,12 @@ This function is called at the very end of Spacemacs initialization."
     "od" 'helm-connect-database
     "oa" 'sql-set-sqli-buffer
     )
+
+  (evil-leader/set-key-for-mode 'scala-mode
+    "mnq" 'ensime-shutdown)
+
+  (evil-leader/set-key
+    "of" 'make-frame)
   )
 
 (custom-set-variables
