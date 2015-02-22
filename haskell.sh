@@ -1,9 +1,10 @@
-cabalDir=~/.cabal-emacs2
+cabalDir=~/.cabal-emacs
 if [ ! -d $cabalDir ]
 then
     mkdir $cabalDir &&
     cd $cabalDir &&
     cabal sandbox init &&
+    cabal update &&
     cabal install cabal-install-1.20.0.6 &&
     $cabalDir/.cabal-sandbox/bin/cabal install stylish-haskell hlint ghc-mod-5.2.1.2 &&
 
