@@ -1,11 +1,12 @@
 (defvar misc-packages
   '(
     ;;org-trello
-    edbi
-    company-edbi
+    ;; edbi
+    ;; company-edbi
 ;;    edbi-database-url
-    edbi-minor-mode
+    ;; edbi-minor-mode
     ;; butler ;; jenkins
+    yaml-mode
     )
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
@@ -22,3 +23,14 @@ which require an initialization must be listed explicitly in the list.")
 ;;                        ))
 
 ;;     )
+
+(defun misc/init-yaml-mode ()
+  (use-package yaml-mode
+    :defer t
+    :config
+    (progn
+      (evil-define-key 'normal yaml-mode-map
+        (kbd "=") 'yaml-indent-line)
+      )
+  )
+  )

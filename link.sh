@@ -7,12 +7,12 @@ else
     echo "~/.spacemacs already exists"
 fi
 
-if [ ! -d ~/.emacs.d/private ]; then
-    ln -s `pwd`/private ~/.emacs.d/
-    echo "Linked ~/.emacs.d/private"
+if [ ! -d ~/.emacsprivate/private ]; then
+    ln -s `pwd`/private ~/.emacsprivate/
+    echo "Linked ~/.emacsprivate/private"
 else
-    echo "~/.emacs.d/private already exists, deleting and linking"
-    rm -rf ~/.emacs.d/private
-    ln -s `pwd`/private ~/.emacs.d/
-    echo "Linked ~/.emacs.d/private"
+    echo "~/.emacsprivate/private already exists, deleting and linking"
+    rm -rf ~/.emacsprivate/private
+    ln -s `pwd`/private ~/.emacsprivate/
+    echo "Linked ~/.emacsprivate/private"
 fi

@@ -1,20 +1,31 @@
 ;;; -*- mode: emacs-lisp -*-
 
 (setq-default
- dotspacemacs-configuration-layer-path '()
- dotspacemacs-configuration-layers '(auctex company-mode haskell git osx themes scala misc)
+ dotspacemacs-configuration-layer-path '("~/.emacsprivate/private/")
+ dotspacemacs-configuration-layers '(
+                                     auctex
+                                     company-mode
+                                     (haskell :variables
+                                              haskell-ghci-ng-support t)
+                                     git
+                                     osx
+                                     themes
+                                     scala
+                                     misc
+                                     markdown)
  dotspacemacs-smooth-scrolling t
  dotspacemacs-feature-toggle-leader-on-jk nil
  dotspacemacs-excluded-packages '() 
  dotspacemacs-default-package-repository nil
  dotspacemacs-themes '(hc-zenburn)
+ configuration-layer-private-directory "~/.emacsprivate/private/"
  )
 
 (pcase window-system
   (`x
    (setq-default
-    dotspacemacs-default-font '("Termsyn"
-                                :size 14
+    dotspacemacs-default-font '("Terminus"
+                                :size 12
                                 :weight normal
                                 :width normal
                                 :powerline-offset 2)))
@@ -32,7 +43,7 @@
   "User initialization for Spacemacs. This function is called at the very
  startup."
   (add-to-list 'exec-path "~/.OmniSharp/")
-  (add-to-list 'exec-path "~/.cabal/bin/")
+  (add-to-list 'exec-path "~/.cabal-emacs/.cabal-sandbox/bin/")
   )
 
 (defun dotspacemacs/config ()
@@ -74,6 +85,7 @@ This function is called at the very end of Spacemacs initialization."
 
   (global-linum-mode t)
   (linum-relative-toggle)
+  (spacemacs/mode-line-minor-modes-toggle)
   ;; (spacemacs/toggle-golden-ratio)
 
   (set-face-attribute 'fringe nil :background "#3F3F3F" :foreground "#3F3F3F")
@@ -202,7 +214,7 @@ This function is called at the very end of Spacemacs initialization."
  '(haskell-process-auto-import-loaded-modules t)
  '(haskell-process-suggest-remove-import-lines t)
  '(haskell-process-type (quote auto))
- '(haskell-stylish-on-save nil)
+ ;; '(haskell-stylish-on-save nil)
  '(haskell-tags-on-save t)
  '(large-file-warning-threshold nil)
  '(org-agenda-files
@@ -226,7 +238,7 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:foreground "#DCDCCC" :background "#313131"))))
+ ;; '(default ((t (:foreground "#DCDCCC" :background "#313131"))))
  '(company-tooltip-annotation ((t (:inherit company-tooltip :foreground "Brown"))))
  '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
  '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil))))
