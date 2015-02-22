@@ -5,14 +5,13 @@
  dotspacemacs-configuration-layers '(
                                      auctex
                                      company-mode
-                                     (haskell :variables
-                                              haskell-ghci-ng-support t)
                                      git
                                      osx
                                      themes
                                      scala
                                      misc
-                                     markdown)
+                                     markdown
+                                     (haskell :variables haskell-ghci-ng-support t))
  dotspacemacs-smooth-scrolling t
  dotspacemacs-feature-toggle-leader-on-jk nil
  dotspacemacs-excluded-packages '() 
@@ -42,14 +41,16 @@
 (defun dotspacemacs/init ()
   "User initialization for Spacemacs. This function is called at the very
  startup."
-  (add-to-list 'exec-path "~/.OmniSharp/")
-  (add-to-list 'exec-path "~/.cabal-emacs/.cabal-sandbox/bin/")
+  (progn
+    (add-to-list 'exec-path "~/.OmniSharp/")
+    (add-to-list 'exec-path "~/.cabal-emacs/.cabal-sandbox/bin/"))
   )
 
 (defun dotspacemacs/config ()
   "This is were you can ultimately override default Spacemacs configuration.
 This function is called at the very end of Spacemacs initialization."
   ;;(company-emacs-eclim-setup)
+  (add-to-list 'exec-path "~/.cabal-emacs/.cabal-sandbox/bin/")
   
   (if (equal window-system `mac)
       (progn
