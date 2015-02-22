@@ -52,26 +52,27 @@ This function is called at the very end of Spacemacs initialization."
   ;;(company-emacs-eclim-setup)
   
   (if (equal window-system `mac)
-      (setq load-path (cons "~/.emacsprivate/02263/" load-path))
-    (load "rsltc.el")
-    (load "rsl-mode.el")
-    (load "rslconvert.el")
+      (progn
+        (setq load-path (cons "~/.emacsprivate/02263/" load-path))
+        (load "rsltc.el")
+        (load "rsl-mode.el")
+        (load "rslconvert.el")
 
-    (defun rsl2latex ()
-      "Do rslatex on buffer"
-      (interactive)
-      (do-latex))
+        (defun rsl2latex ()
+          "Do rslatex on buffer"
+          (interactive)
+          (do-latex))
 
-    (defun latex2rsl ()
-      "Undo rslatex on buffer"
-      (interactive)
-      (undo-latex))
+        (defun latex2rsl ()
+          "Undo rslatex on buffer"
+          (interactive)
+          (undo-latex))
 
-    (evil-leader/set-key-for-mode 'rsl-mode
-      "ml" 'rsl2latex
-      "mL" 'latex2rsl
-      "mc" 'rsltc-cc
-      ))
+        (evil-leader/set-key-for-mode 'rsl-mode
+          "ml" 'rsl2latex
+          "mL" 'latex2rsl
+          "mc" 'rsltc-cc
+          )))
 
   (add-hook 'after-init-hook #'global-flycheck-mode)
 
