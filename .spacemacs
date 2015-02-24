@@ -3,21 +3,24 @@
 (setq-default
  dotspacemacs-configuration-layer-path '("~/.emacsprivate/private/")
  dotspacemacs-configuration-layers '(
+                                     fasd
                                      auctex
                                      company-mode
+                                     (haskell :variables
+                                              haskell-ghci-ng-support t
+                                              haskell-shm-support t)
                                      git
                                      osx
                                      themes
                                      scala
                                      misc
                                      markdown
-                                     (haskell :variables haskell-ghci-ng-support t))
+                                     )
  dotspacemacs-smooth-scrolling t
  dotspacemacs-feature-toggle-leader-on-jk nil
  dotspacemacs-excluded-packages '() 
  dotspacemacs-default-package-repository nil
  dotspacemacs-themes '(hc-zenburn)
- configuration-layer-private-directory "~/.emacsprivate/private/"
  )
 
 (pcase window-system
@@ -75,6 +78,7 @@ This function is called at the very end of Spacemacs initialization."
           "mc" 'rsltc-cc
           )))
 
+
   (add-hook 'after-init-hook #'global-flycheck-mode)
 
   (setq powerline-default-separator 'arrow)
@@ -96,6 +100,20 @@ This function is called at the very end of Spacemacs initialization."
   (add-to-list 'evil-emacs-state-modes 'helm-mode)
 
   ;;(setq projectile-switch-project-action 'neotree-projectile-action)
+
+  (defun haskell/enable-eldoc ()
+    (setq-local eldoc-documentation-function
+                (lambda ()
+                  (haskell/haskell-show-type)))
+    (eldoc-mode +1))
+
+  (defun haskell/haskell-show-type ()
+    (interactive)
+    (if haskell-ghci-ng-support
+        (haskell-mode-show-type-at)
+      (haskell-process-do-type)))
+
+      (add-hook 'haskell-mode-hook 'haskell/enable-eldoc)
 
 
   (defun neotree-find-project-root ()
@@ -206,7 +224,7 @@ This function is called at the very end of Spacemacs initialization."
     (:test-class-names-fn ensime-goto-test--test-class-names :test-class-suffixes
                           ("Test" "Spec" "Specification" "Check")
                           :impl-class-name-fn ensime-goto-test--impl-class-name :impl-to-test-dir-fn ensime-goto-test--impl-to-test-dir :is-test-dir-fn ensime-goto-test--is-test-dir :test-template-fn ensime-goto-test--test-template-scalatest-2)))
- '(evil-search-highlight-persist t)
+ '(evil-search-highlight-persist t t)
  '(flycheck-idle-change-delay 0.5)
  '(global-evil-search-highlight-persist t)
  '(gud-gdb-command-name "gdb --annotate=1")
@@ -216,8 +234,9 @@ This function is called at the very end of Spacemacs initialization."
  '(haskell-process-auto-import-loaded-modules t)
  '(haskell-process-suggest-remove-import-lines t)
  '(haskell-process-type (quote auto))
- ;; '(haskell-stylish-on-save nil)
  '(haskell-tags-on-save t)
+ '(helm-ag-fuzzy-match t)
+ '(helm-ag-use-grep-ignore-list nil)
  '(large-file-warning-threshold nil)
  '(org-agenda-files
    (quote
@@ -240,7 +259,7 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- ;; '(default ((t (:foreground "#DCDCCC" :background "#313131"))))
+ '(default ((t (:foreground "#DCDCCC" :background "#313131"))))
  '(company-tooltip-annotation ((t (:inherit company-tooltip :foreground "Brown"))))
  '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
  '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil))))
