@@ -129,8 +129,8 @@ This function is called at the very end of Spacemacs initialization."
              (menu-bar-mode 0)
              ))
     (other (progn
-             (setq mac-command-modifier 'meta)
-             (setq mac-option-modifier nil)
+             ;; (setq mac-command-modifier 'meta)
+             ;; (setq mac-option-modifier nil)
              (menu-bar-mode 1)
              (spacemacs/mode-line-battery-info-toggle)
              ))
