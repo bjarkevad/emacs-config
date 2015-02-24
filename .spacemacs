@@ -9,7 +9,8 @@
                                      (haskell :variables
                                               haskell-ghci-ng-support t
                                               haskell-shm-support t)
-                                     git
+                                     (git :variables
+                                          git-enable-github-support t)
                                      osx
                                      themes
                                      scala
@@ -18,7 +19,7 @@
                                      )
  dotspacemacs-smooth-scrolling t
  dotspacemacs-feature-toggle-leader-on-jk nil
- dotspacemacs-excluded-packages '() 
+ dotspacemacs-excluded-packages '()
  dotspacemacs-default-package-repository nil
  dotspacemacs-themes '(hc-zenburn)
  )
@@ -54,7 +55,6 @@
 This function is called at the very end of Spacemacs initialization."
   ;;(company-emacs-eclim-setup)
   (add-to-list 'exec-path "~/.cabal-emacs/.cabal-sandbox/bin/")
-  
   (if (equal window-system `mac)
       (progn
         (setq load-path (cons "~/.emacsprivate/02263/" load-path))
@@ -151,7 +151,7 @@ This function is called at the very end of Spacemacs initialization."
           (server :default "localhost")
           (post :default 5432)
           ))
-  
+
   (setq sql-connection-alist
         '((nxtoff-test (sql-product 'postgres)
                        (sql-port 5432)
@@ -203,7 +203,11 @@ This function is called at the very end of Spacemacs initialization."
     )
 
   (evil-leader/set-key
-    "of" 'make-frame)
+    "of" 'make-frame
+    "os" 'helm-yas-create-snippet-on-region
+    "oe" 'yas-visit-snippet-file
+    "or" 'yas-reload-all
+    )
   )
 
 (custom-set-variables
@@ -252,7 +256,10 @@ This function is called at the very end of Spacemacs initialization."
  '(show-paren-mode nil)
  '(sp-autoescape-string-quote nil)
  '(sp-autoskip-opening-pair nil)
- '(sp-cancel-autoskip-on-backward-movement nil))
+ '(sp-cancel-autoskip-on-backward-movement nil)
+ '(yas-snippet-dirs
+   (quote
+    ("~/.emacsprivate/private/snippets" "/home/bjarke/.emacs.d/spacemacs/extensions/yasnippet-snippets" "/home/bjarke/.emacs.d/elpa/haskell-mode-20150222.908/snippets")) nil (yasnippet)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
