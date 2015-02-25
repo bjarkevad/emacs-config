@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+#name : trans
+#key : trans
+#contributor : Bjarke Vad
+# --
+db.withTransaction { implicit session =>
+$0
+}

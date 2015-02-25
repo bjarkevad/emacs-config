@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+#name : sess
+#key : sess
+#contributor : Bjarke Vad
+# --
+db.withSession { implicit session => {
+    $0
+  }
+}

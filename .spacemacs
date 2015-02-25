@@ -257,9 +257,11 @@ This function is called at the very end of Spacemacs initialization."
  '(sp-autoescape-string-quote nil)
  '(sp-autoskip-opening-pair nil)
  '(sp-cancel-autoskip-on-backward-movement nil)
- '(yas-snippet-dirs
-   (quote
-    ("~/.emacsprivate/private/snippets" "/home/bjarke/.emacs.d/spacemacs/extensions/yasnippet-snippets" "/home/bjarke/.emacs.d/elpa/haskell-mode-20150222.908/snippets")) nil (yasnippet)))
+ ;; '(yas-snippet-dirs
+ ;;   (quote
+ ;;    ("~/.emacsprivate/private/snippets" "/home/bjarke/.emacs.d/spacemacs/extensions/yasnippet-snippets" "/home/bjarke/.emacs.d/elpa/haskell-mode-20150222.908/snippets")) nil (yasnippet)
+ ;;    )
+ )
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
