@@ -5,12 +5,17 @@
  dotspacemacs-configuration-layers '(
                                      fasd
                                      auctex
-                                     company-mode
+                                     (company-mode :variables
+                                                   company-mode-enable-yas t
+                                                   company-mode-use-tab-instead-of-enter t
+                                                   )
                                      (haskell :variables
                                               haskell-ghci-ng-support t
-                                              haskell-shm-support t)
+                                              haskell-shm-support t
+                                              )
                                      (git :variables
-                                          git-enable-github-support t)
+                                          git-enable-github-support t
+                                          )
                                      osx
                                      themes
                                      scala
@@ -210,6 +215,7 @@ This function is called at the very end of Spacemacs initialization."
     "oe" 'yas-visit-snippet-file
     "or" 'yas-reload-all
     )
+
   )
 
 (custom-set-variables
@@ -224,7 +230,9 @@ This function is called at the very end of Spacemacs initialization."
  '(ahs-idle-timer 0 t)
  '(ahs-inhibit-face-list nil)
  '(blink-cursor-mode nil)
+ '(company-auto-complete-chars (quote (32 41 46)))
  '(company-idle-delay 0.0)
+ '(ensime-company-case-sensitive t)
  '(ensime-goto-test-config-defaults
    (quote
     (:test-class-names-fn ensime-goto-test--test-class-names :test-class-suffixes
@@ -258,12 +266,7 @@ This function is called at the very end of Spacemacs initialization."
  '(show-paren-mode nil)
  '(sp-autoescape-string-quote nil)
  '(sp-autoskip-opening-pair nil)
- '(sp-cancel-autoskip-on-backward-movement nil)
- ;; '(yas-snippet-dirs
- ;;   (quote
- ;;    ("~/.emacsprivate/private/snippets" "/home/bjarke/.emacs.d/spacemacs/extensions/yasnippet-snippets" "/home/bjarke/.emacs.d/elpa/haskell-mode-20150222.908/snippets")) nil (yasnippet)
- ;;    )
- )
+ '(sp-cancel-autoskip-on-backward-movement nil))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
