@@ -18,11 +18,11 @@ else
 fi
 
 if [ ! -d ~/.emacs.d/private/snippets/ ]; then
-    ln -s `pwd`/private/snippets ~/.emacs.d/private/snippets/
-    echo "Linked ~/.emacsprivate/private/snippets"
+    ln -s `pwd`/private/snippets ~/.emacs.d/private/snippets
+    echo "Linked ~/.emacs.d/private/snippets"
 else
     echo "~/.emacs.d/private/snippets already exists, deleting and linking"
     rm -rf ~/.emacs.d/private/snippets
-    ln -s `pwd`/private/snippets ~/.emacs.d/private/snippets/
-    echo "Linked ~/.emacs.d/private/snippets/"
+    ln -s `pwd`/private/snippets ~/.emacs.d/private/snippets
+    echo "Linked ~/.emacs.d/private/snippets"
 fi

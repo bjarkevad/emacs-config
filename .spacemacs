@@ -118,9 +118,11 @@ This function is called at the very end of Spacemacs initialization."
 
   (defun neotree-find-project-root ()
     (interactive)
-    (neotree-find (projectile-project-root)))
+    (if (neo-global--window-exists-p)
+        (neotree-hide)
+      (neotree-find (projectile-project-root))))
 
-  (evil-leader/set-key "fT" 'neotree-find-project-root)
+  (evil-leader/set-key "pt" 'neotree-find-project-root)
 
   (setq helm-prevent-escaping-from-minibuffer t)
 
