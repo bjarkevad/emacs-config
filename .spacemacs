@@ -10,11 +10,11 @@
                                                    company-mode-use-tab-instead-of-enter t
                                                    )
                                      (haskell :variables
-                                              haskell-ghci-ng-support t
-                                              haskell-shm-support t
+                                              haskell-enable-ghci-ng-support t
+                                              haskell-enable-shm-support t
                                               )
                                      (git :variables
-                                          git-enable-github-support t
+                                         ;;git-enable-github-support t
                                           )
                                      osx
                                      themes
@@ -121,13 +121,13 @@ This function is called at the very end of Spacemacs initialization."
       (add-hook 'haskell-mode-hook 'haskell/enable-eldoc)
 
 
-  (defun neotree-find-project-root ()
-    (interactive)
-    (if (neo-global--window-exists-p)
-        (neotree-hide)
-      (neotree-find (projectile-project-root))))
+  ;; (defun neotree-find-project-root ()
+  ;;   (interactive)
+  ;;   (if (neo-global--window-exists-p)
+  ;;       (neotree-hide)
+  ;;     (neotree-find (projectile-project-root))))
 
-  (evil-leader/set-key "pt" 'neotree-find-project-root)
+  ;; (evil-leader/set-key "pt" 'neotree-find-project-root)
 
   (setq helm-prevent-escaping-from-minibuffer t)
 
@@ -254,7 +254,7 @@ This function is called at the very end of Spacemacs initialization."
  '(large-file-warning-threshold nil)
  '(org-agenda-files
    (quote
-    ("~/Google Drive/School/IPD/ipd.org" "~/Google Drive/School/FA/fa.org" "~/ITM/plzcome/plzcome.org" "~/Google Drive/notes.org" "~/Google Drive/School/AI/ai.org" "~/Google Drive/School/2.org")))
+    ("~/ITM/plzcome/plzcome-clocks.org" "~/Google Drive/School/IPD/ipd.org" "~/Google Drive/School/FA/fa.org" "~/ITM/plzcome/plzcome.org" "~/Google Drive/notes.org" "~/Google Drive/School/AI/ai.org" "~/Google Drive/School/2.org")))
  '(org-clock-continuously t)
  '(org-clock-idle-time 15)
  '(org-clock-persist t)
