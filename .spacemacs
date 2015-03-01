@@ -2,7 +2,7 @@
 
 (setq-default
  dotspacemacs-configuration-layer-path '("~/.emacsprivate/private/")
- dotspacemacs-configuration-layers '(
+dotspacemacs-configuration-layers '(
                                      fasd
                                      auctex
                                      (company-mode :variables
@@ -12,6 +12,7 @@
                                      (haskell :variables
                                               haskell-enable-ghci-ng-support t
                                               haskell-enable-shm-support t
+                                              haskell-enable-hindent-support t
                                               )
                                      (git :variables
                                          ;;git-enable-github-support t
@@ -60,6 +61,8 @@
 This function is called at the very end of Spacemacs initialization."
   ;;(company-emacs-eclim-setup)
   (add-to-list 'exec-path "~/.cabal-emacs/.cabal-sandbox/bin/")
+  ;; (progn (yas-global-mode 1)
+  ;;        (setq yas-snippet-dirs (append '("~/.emacsprivate/private/snippets") yas-snippet-dirs)))
   (if (equal window-system `mac)
       (progn
         (setq load-path (cons "~/.emacsprivate/02263/" load-path))
@@ -83,6 +86,11 @@ This function is called at the very end of Spacemacs initialization."
           "mc" 'rsltc-cc
           )))
 
+   (progn
+     (yas-global-mode 1)
+     (define-key yas-minor-mode-map (kbd "<tab>") nil)
+     (define-key yas-minor-mode-map (kbd "TAB") nil)
+     (define-key yas-minor-mode-map (kbd "<backtab>") 'yas-expand))
 
   (add-hook 'after-init-hook #'global-flycheck-mode)
 
@@ -210,12 +218,12 @@ This function is called at the very end of Spacemacs initialization."
     )
 
   (evil-leader/set-key
+    "oq" 'ielm
     "of" 'make-frame
     "os" 'helm-yas-create-snippet-on-region
     "oe" 'yas-visit-snippet-file
     "or" 'yas-reload-all
     )
-
   )
 
 (custom-set-variables
@@ -238,6 +246,7 @@ This function is called at the very end of Spacemacs initialization."
     (:test-class-names-fn ensime-goto-test--test-class-names :test-class-suffixes
                           ("Test" "Spec" "Specification" "Check")
                           :impl-class-name-fn ensime-goto-test--impl-class-name :impl-to-test-dir-fn ensime-goto-test--impl-to-test-dir :is-test-dir-fn ensime-goto-test--is-test-dir :test-template-fn ensime-goto-test--test-template-scalatest-2)))
+ '(ensime-inf-default-cmd-line (quote ("sbt" "console")))
  '(evil-search-highlight-persist t t)
  '(flycheck-idle-change-delay 0.5)
  '(global-evil-search-highlight-persist t)
@@ -248,9 +257,11 @@ This function is called at the very end of Spacemacs initialization."
  '(haskell-process-auto-import-loaded-modules t)
  '(haskell-process-suggest-remove-import-lines t)
  '(haskell-process-type (quote auto))
+ '(haskell-stylish-on-save nil)
  '(haskell-tags-on-save t)
  '(helm-ag-fuzzy-match t)
  '(helm-ag-use-grep-ignore-list nil)
+ '(hindent-style "chris-done")
  '(large-file-warning-threshold nil)
  '(org-agenda-files
    (quote
@@ -266,7 +277,10 @@ This function is called at the very end of Spacemacs initialization."
  '(show-paren-mode nil)
  '(sp-autoescape-string-quote nil)
  '(sp-autoskip-opening-pair nil)
- '(sp-cancel-autoskip-on-backward-movement nil))
+ '(sp-cancel-autoskip-on-backward-movement nil)
+ '(yas-prompt-functions
+   (quote
+    (yas-ido-prompt yas-dropdown-prompt yas-x-prompt yas-no-prompt))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
