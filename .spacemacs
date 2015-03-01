@@ -266,7 +266,7 @@ This function is called at the very end of Spacemacs initialization."
  '(org-agenda-files
    (quote
     ("~/ITM/plzcome/plzcome-clocks.org" "~/Google Drive/School/IPD/ipd.org" "~/Google Drive/School/FA/fa.org" "~/ITM/plzcome/plzcome.org" "~/Google Drive/notes.org" "~/Google Drive/School/AI/ai.org" "~/Google Drive/School/2.org")))
- '(org-clock-continuously t)
+ '(org-clock-continuously nil)
  '(org-clock-idle-time 15)
  '(org-clock-persist t)
  '(paradox-github-token t)
