@@ -122,7 +122,7 @@ This function is called at the very end of Spacemacs initialization."
 
   (defun haskell/haskell-show-type ()
     (interactive)
-    (if haskell-ghci-ng-support
+    (if haskell-enable-ghci-ng-support
         (haskell-mode-show-type-at)
       (haskell-process-do-type)))
 
