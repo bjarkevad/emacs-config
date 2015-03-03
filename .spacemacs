@@ -117,7 +117,8 @@ This function is called at the very end of Spacemacs initialization."
   (defun haskell/enable-eldoc ()
     (setq-local eldoc-documentation-function
                 (lambda ()
-                  (haskell/haskell-show-type)))
+                  (if (haskell-session-maybe)
+                      (haskell/haskell-show-type))))
     (eldoc-mode +1))
 
   (defun haskell/haskell-show-type ()
@@ -126,7 +127,7 @@ This function is called at the very end of Spacemacs initialization."
         (haskell-mode-show-type-at)
       (haskell-process-do-type)))
 
-      (add-hook 'haskell-mode-hook 'haskell/enable-eldoc)
+  ;; (add-hook 'haskell-mode-hook 'haskell/enable-eldoc)
 
 
   ;; (defun neotree-find-project-root ()
@@ -238,6 +239,10 @@ This function is called at the very end of Spacemacs initialization."
  '(ahs-idle-timer 0 t)
  '(ahs-inhibit-face-list nil)
  '(blink-cursor-mode nil)
+ '(ccm-ignored-commands
+   (quote
+    (mouse-drag-region mouse-set-point widget-button-click scroll-bar-toolkit-scroll evil-mouse-drag-region)))
+ '(ccm-recenter-at-end-of-file t)
  '(company-auto-complete-chars (quote (32 41 46)))
  '(company-idle-delay 0.0)
  '(ensime-company-case-sensitive t)
@@ -248,6 +253,7 @@ This function is called at the very end of Spacemacs initialization."
                           :impl-class-name-fn ensime-goto-test--impl-class-name :impl-to-test-dir-fn ensime-goto-test--impl-to-test-dir :is-test-dir-fn ensime-goto-test--is-test-dir :test-template-fn ensime-goto-test--test-template-scalatest-2)))
  '(ensime-inf-default-cmd-line (quote ("sbt" "console")))
  '(evil-search-highlight-persist t t)
+ '(flycheck-display-errors-delay 0)
  '(flycheck-idle-change-delay 0.5)
  '(global-evil-search-highlight-persist t)
  '(gud-gdb-command-name "gdb --annotate=1")
@@ -261,7 +267,6 @@ This function is called at the very end of Spacemacs initialization."
  '(haskell-tags-on-save t)
  '(helm-ag-fuzzy-match t)
  '(helm-ag-use-grep-ignore-list nil)
- '(hindent-style "chris-done")
  '(large-file-warning-threshold nil)
  '(org-agenda-files
    (quote
