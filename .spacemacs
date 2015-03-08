@@ -32,12 +32,23 @@ dotspacemacs-configuration-layers '(
 
 (pcase window-system
   (`x
-   (setq-default
-    dotspacemacs-default-font '("Terminus"
-                                :size 12
-                                :weight normal
-                                :width normal
-                                :powerline-offset 2)))
+   (pcase system-name
+     ("mbp"
+      (setq-default
+       dotspacemacs-default-font '("Terminus"
+                                   :size 20
+                                   :weight normal
+                                   :width normal
+                                   :powerline-offset 2)))
+     ("desktop"
+      (setq-default
+       dotspacemacs-default-font '("Terminus"
+                                   :size 12
+                                   :weight normal
+                                   :width normal
+                                   :powerline-offset 2)))
+     )
+   ))
   (`mac
    (setq-default
     dotspacemacs-fullscreen-use-non-native t
