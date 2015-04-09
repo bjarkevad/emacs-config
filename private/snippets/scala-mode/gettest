@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+#name : gettest
+#key : gettest
+#contributor : 
+# --
+Get($1) ~> credentials ~> route ~> check {
+  $0
+}

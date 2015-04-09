@@ -2,17 +2,19 @@
 
 (setq-default
  dotspacemacs-configuration-layer-path '("~/.emacsprivate/private/")
-dotspacemacs-configuration-layers '(
+ dotspacemacs-configuration-layers '(
                                      fasd
                                      auctex
-                                     (company-mode :variables
-                                                   company-mode-enable-yas t
-                                                   company-mode-use-tab-instead-of-enter t
-                                                   )
+                                     (perspectives :variables
+                                                   perspective-enable-persp-projectile t)
+                                     (auto-completion :variables
+                                                      auto-completion-use-tab-instead-of-enter t
+                                                      auto-completion-enable-company-help-tooltip t
+                                                      )
                                      (haskell :variables
                                               haskell-enable-ghci-ng-support t
                                               haskell-enable-shm-support t
-                                              haskell-enable-hindent-support t
+                                              haskell-enable-hindent-support "chris-done"
                                               )
                                      (git :variables
                                          ;;git-enable-github-support t
@@ -48,7 +50,7 @@ dotspacemacs-configuration-layers '(
                                    :width normal
                                    :powerline-offset 2)))
      )
-   ))
+   )
   (`mac
    (setq-default
     dotspacemacs-fullscreen-use-non-native t
@@ -74,7 +76,7 @@ This function is called at the very end of Spacemacs initialization."
   (add-to-list 'exec-path "~/.cabal-emacs/.cabal-sandbox/bin/")
   ;; (progn (yas-global-mode 1)
   ;;        (setq yas-snippet-dirs (append '("~/.emacsprivate/private/snippets") yas-snippet-dirs)))
-  (if (equal window-system `mac)
+  (if (equal system-name "mbp")
       (progn
         (setq load-path (cons "~/.emacsprivate/02263/" load-path))
         (load "rsltc.el")
@@ -229,6 +231,17 @@ This function is called at the very end of Spacemacs initialization."
     "mng" 'gen-ensime
     )
 
+  (evil-leader/set-key-for-mode 'org-mode
+    "mp" 'org-preview-latex-fragment
+    "mi" 'org-toggle-inline-images
+    "mc" 'org-ctrl-c-ctrl-c
+    )
+
+  (evil-leader/set-key-for-mode 'graphviz-dot-mode
+    "mp" 'graphviz-dot-preview
+    "mc" 'compile
+    )
+
   (evil-leader/set-key
     "oq" 'ielm
     "of" 'make-frame
@@ -243,6 +256,13 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(TeX-view-program-selection
+   (quote
+    (((output-dvi style-pstricks)
+      "dvips and gv")
+     (output-dvi "xdg-open")
+     (output-pdf "xdg-open")
+     (output-html "xdg-open"))))
  '(ac-ispell-requires 4)
  '(ahs-case-fold-search nil)
  '(ahs-default-range (quote ahs-range-whole-buffer))
@@ -281,7 +301,7 @@ This function is called at the very end of Spacemacs initialization."
  '(large-file-warning-threshold nil)
  '(org-agenda-files
    (quote
-    ("~/ITM/plzcome/plzcome-clocks.org" "~/Google Drive/School/IPD/ipd.org" "~/Google Drive/School/FA/fa.org" "~/ITM/plzcome/plzcome.org" "~/Google Drive/notes.org" "~/Google Drive/School/AI/ai.org" "~/Google Drive/School/2.org")))
+    ("~/Copy/ITM/nxtoff/plzcome-clocks.org" "~/Copy/ITM/nxtoff/plzcome.org" "~/Copy/School/IPD/ipd.org" "~/Copy/School/FA/fa.org" "~/Copy/notes.org" "~/Copy/School/AI/ai.org" "~/Copy/School/2.org")))
  '(org-clock-continuously nil)
  '(org-clock-idle-time 15)
  '(org-clock-persist t)
@@ -304,9 +324,11 @@ This function is called at the very end of Spacemacs initialization."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:foreground "#DCDCCC" :background "#313131"))))
+ '(ac-candidate-mouse-face ((t (:inherit popup-menu-mouse-face :background "royal blue"))))
  '(company-tooltip-annotation ((t (:inherit company-tooltip :foreground "Brown"))))
  '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
  '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil))))
  '(evil-search-highlight-persist-highlight-face ((t (:background "selectedMenuItemColor"))))
  '(region ((t (:inverse-video t))))
+ '(shm-current-face ((t (:background "#373737"))))
  '(sp-pair-overlay-face ((t (:background "#444455")))))
