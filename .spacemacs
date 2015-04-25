@@ -13,17 +13,20 @@
                                                       )
                                      (haskell :variables
                                               haskell-enable-ghci-ng-support t
-                                              haskell-enable-shm-support t
-                                              haskell-enable-hindent-support "chris-done"
+                                              ;; haskell-enable-shm-support t
+                                              haskell-enable-hindent-style "chris-done"
                                               )
                                      (git :variables
                                          ;;git-enable-github-support t
                                           )
-                                     osx
-                                     themes
+                                     extra-langs
+                                     syntax-checking
+                                     org
                                      scala
                                      misc
+                                     themes-megapack
                                      markdown
+                                     sql
                                      )
  dotspacemacs-smooth-scrolling t
  dotspacemacs-feature-toggle-leader-on-jk nil
@@ -67,6 +70,9 @@
   (progn
     (add-to-list 'exec-path "~/.OmniSharp/")
     (add-to-list 'exec-path "~/.cabal-emacs/.cabal-sandbox/bin/"))
+
+  (autoload 'haskell-indentation-enable-show-indentations "haskell-indentation")
+  (autoload 'haskell-indentation-disable-show-indentations "haskell-indentation")
   )
 
 (defun dotspacemacs/config ()
@@ -74,6 +80,7 @@
 This function is called at the very end of Spacemacs initialization."
   ;;(company-emacs-eclim-setup)
   (add-to-list 'exec-path "~/.cabal-emacs/.cabal-sandbox/bin/")
+
   ;; (progn (yas-global-mode 1)
   ;;        (setq yas-snippet-dirs (append '("~/.emacsprivate/private/snippets") yas-snippet-dirs)))
   (if (equal system-name "mbp")
@@ -105,7 +112,7 @@ This function is called at the very end of Spacemacs initialization."
      (define-key yas-minor-mode-map (kbd "TAB") nil)
      (define-key yas-minor-mode-map (kbd "<backtab>") 'yas-expand))
 
-  (add-hook 'after-init-hook #'global-flycheck-mode)
+  ;; (add-hook 'after-init-hook #'global-flycheck-mode)
 
   (setq powerline-default-separator 'arrow)
   (setq magit-repo-dirs '("~/Workspace/"))
@@ -166,7 +173,7 @@ This function is called at the very end of Spacemacs initialization."
     )
 
   ;; SQL
-  (add-hook 'sql-mode-hook 'edbi-minor-mode)
+  ;; (add-hook 'sql-mode-hook 'edbi-minor-mode)
   (add-hook 'sql-interactive-mode-hook
             (lambda ()
               (toggle-truncate-lines t)))

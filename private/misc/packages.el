@@ -20,7 +20,7 @@ which require an initialization must be listed explicitly in the list.")
 ;;              '(jenkins "build.bjarkevad.dk"
 ;;                        (server-address . "https://build.bjarkevad.dk")
 ;;                        (server-user . "bva")
-;;                        (server-password . "dinmor123")
+;;                        (server-password . "")
 ;;                        ))
 
 ;;     )
