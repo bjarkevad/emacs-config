@@ -2,37 +2,37 @@
 
 (setq-default
  dotspacemacs-configuration-layer-path '("~/.emacsprivate/private/")
+ dotspacemacs-smooth-scrolling t
+ dotspacemacs-feature-toggle-leader-on-jk nil
+ dotspacemacs-excluded-packages '()
+ dotspacemacs-default-package-repository nil
+ dotspacemacs-themes '(hc-zenburn)
  dotspacemacs-configuration-layers '(
-                                     fasd
-                                     auctex
-                                     (perspectives :variables
-                                                   perspective-enable-persp-projectile t)
                                      (auto-completion :variables
                                                       auto-completion-use-tab-instead-of-enter t
                                                       auto-completion-enable-company-help-tooltip t
-                                                      )
+                                                      auto-completion-sort-by-usage t)
+
+                                     (syntax-checking :variables
+                                                      syntax-checking-enable-tooltips nil)
+
                                      (haskell :variables
                                               haskell-enable-ghci-ng-support t
-                                              ;; haskell-enable-shm-support t
-                                              haskell-enable-hindent-style "chris-done"
-                                              )
-                                     (git :variables
-                                         ;;git-enable-github-support t
-                                          )
+                                              haskell-enable-hindent-style "chris-done")
+                                     (clojure :variables clojure-enable-fancify-symbols)
+
+                                     git
                                      extra-langs
-                                     syntax-checking
                                      org
                                      scala
                                      misc
                                      themes-megapack
                                      markdown
                                      sql
+                                     fasd
+                                     auctex
+                                     emacs-lisp
                                      )
- dotspacemacs-smooth-scrolling t
- dotspacemacs-feature-toggle-leader-on-jk nil
- dotspacemacs-excluded-packages '()
- dotspacemacs-default-package-repository nil
- dotspacemacs-themes '(hc-zenburn)
  )
 
 (pcase window-system
@@ -69,21 +69,25 @@
  startup."
   (progn
     (add-to-list 'exec-path "~/.OmniSharp/")
-    (add-to-list 'exec-path "~/.cabal-emacs/.cabal-sandbox/bin/"))
+    ;; (add-to-list 'exec-path "~/.cabal-emacs/.cabal-sandbox/bin/")
+    )
 
   (autoload 'haskell-indentation-enable-show-indentations "haskell-indentation")
   (autoload 'haskell-indentation-disable-show-indentations "haskell-indentation")
   )
 
-(defun dotspacemacs/config ()
-  "This is were you can ultimately override default Spacemacs configuration.
-This function is called at the very end of Spacemacs initialization."
-  ;;(company-emacs-eclim-setup)
-  (add-to-list 'exec-path "~/.cabal-emacs/.cabal-sandbox/bin/")
+(defun language/clojure()
+  (add-hook 'clojure-mode-hook (lambda ()
+                                 (prettify-symbols-mode)
+                                 )))
+(defun language/latex()
+  (progn
+  (setq-default TeX-engine 'xetex)
+  (evil-leader/set-key-for-mode 'latex-mode
+    "mv" 'TeX-view))
+    )
 
-  ;; (progn (yas-global-mode 1)
-  ;;        (setq yas-snippet-dirs (append '("~/.emacsprivate/private/snippets") yas-snippet-dirs)))
-  (if (equal system-name "mbp")
+(defun language/rsl()
       (progn
         (setq load-path (cons "~/.emacsprivate/02263/" load-path))
         (load "rsltc.el")
@@ -106,33 +110,9 @@ This function is called at the very end of Spacemacs initialization."
           "mc" 'rsltc-cc
           )))
 
-   (progn
-     (yas-global-mode 1)
-     (define-key yas-minor-mode-map (kbd "<tab>") nil)
-     (define-key yas-minor-mode-map (kbd "TAB") nil)
-     (define-key yas-minor-mode-map (kbd "<backtab>") 'yas-expand))
-
-  ;; (add-hook 'after-init-hook #'global-flycheck-mode)
-
-  (setq powerline-default-separator 'arrow)
-  (setq magit-repo-dirs '("~/Workspace/"))
-  (setq system-uses-terminfo nil)
-  (setq omnisharp-server-executable-path "~/.OmniSharp/OmniSharpServer")
-
-  (evil-leader/set-key "TAB" 'spacemacs/alternate-buffer)
-  (evil-define-key 'normal evil-org-mode-map "O" 'evil-open-above)
-
-  (global-linum-mode t)
-  (linum-relative-toggle)
-  (spacemacs/mode-line-minor-modes-toggle)
-  ;; (spacemacs/toggle-golden-ratio)
-
-  (set-face-attribute 'fringe nil :background "#3F3F3F" :foreground "#3F3F3F")
-  (set-face-attribute 'linum nil :background "#3F3F3F")
-
-  (add-to-list 'evil-emacs-state-modes 'helm-mode)
-
-  ;;(setq projectile-switch-project-action 'neotree-projectile-action)
+(defun language/haskell()
+  (progn
+    (setq ghc-debug t)
 
   (defun haskell/enable-eldoc ()
     (setq-local eldoc-documentation-function
@@ -148,17 +128,49 @@ This function is called at the very end of Spacemacs initialization."
       (haskell-process-do-type)))
 
   ;; (add-hook 'haskell-mode-hook 'haskell/enable-eldoc)
+    ))
+
+(defun language/org ()
+  (progn
+    (evil-define-key 'normal evil-org-mode-map "O" 'evil-open-above)
+    ))
+
+(defun dotspacemacs/config ()
+  "This is were you can ultimately override default Spacemacs configuration.
+This function is called at the very end of Spacemacs initialization."
+  ;;(company-emacs-eclim-setup)
+  ;; (add-to-list 'exec-path "~/.cabal-emacs/.cabal-sandbox/bin/")
+
+  (language/clojure)
+  (language/latex)
+  (language/haskell)
+  (language/org)
+
+  (if (equal system-name "mbp")
+      (language/rsl))
 
 
-  ;; (defun neotree-find-project-root ()
-  ;;   (interactive)
-  ;;   (if (neo-global--window-exists-p)
-  ;;       (neotree-hide)
-  ;;     (neotree-find (projectile-project-root))))
+  ;; (progn
+  ;;   (yas-global-mode 1)
+  ;;   (define-key yas-minor-mode-map (kbd "<tab>") nil)
+  ;;   (define-key yas-minor-mode-map (kbd "TAB") nil)
+  ;;   (define-key yas-minor-mode-map (kbd "<backtab>") 'yas-expand))
 
-  ;; (evil-leader/set-key "pt" 'neotree-find-project-root)
-
+  (setq powerline-default-separator 'arrow)
+  (setq magit-repo-dirs '("~/Workspace/"))
+  (setq system-uses-terminfo nil)
   (setq helm-prevent-escaping-from-minibuffer t)
+
+  (evil-leader/set-key "TAB" 'spacemacs/alternate-buffer)
+
+  (global-linum-mode t)
+  (linum-relative-toggle)
+  (spacemacs/mode-line-minor-modes-toggle)
+
+  (set-face-attribute 'fringe nil :background "#3F3F3F" :foreground "#3F3F3F")
+  (set-face-attribute 'linum nil :background "#3F3F3F")
+
+  ;; (add-to-list 'evil-emacs-state-modes 'helm-mode)
 
   (pcase window-system
     (`x    (progn
@@ -180,7 +192,7 @@ This function is called at the very end of Spacemacs initialization."
 
   ;; NXTOFF
 
-  ; set default DB
+                                        ; set default DB
   (setq sql-postgres-login-params
         '((user :default "postgres")
           (database :default "nxtoff")
@@ -196,13 +208,13 @@ This function is called at the very end of Spacemacs initialization."
                        (sql-password "password")
                        (sql-database "nxtoff_test")
                        )
-        (nxtoff-prod (sql-product 'postgres)
-                     (sql-port 5432)
-                     (sql-server "localhost")
-                     (sql-user "nxtoff")
-                     (sql-password "password")
-                     (sql-database "nxtoff_prod")
-                     )))
+          (nxtoff-prod (sql-product 'postgres)
+                       (sql-port 5432)
+                       (sql-server "localhost")
+                       (sql-user "nxtoff")
+                       (sql-password "password")
+                       (sql-database "nxtoff_prod")
+                       )))
 
   (defun nxtoff-db/test ()
     (interactive)
@@ -229,9 +241,9 @@ This function is called at the very end of Spacemacs initialization."
     )
 
   (defun gen-ensime ()
-     (interactive)
-     (sbt-command "gen-ensime")
-     )
+    (interactive)
+    (sbt-command "gen-ensime")
+    )
 
   (evil-leader/set-key-for-mode 'scala-mode
     "mnq" 'ensime-shutdown
@@ -300,8 +312,6 @@ This function is called at the very end of Spacemacs initialization."
  '(haskell-notify-p t)
  '(haskell-process-auto-import-loaded-modules t)
  '(haskell-process-suggest-remove-import-lines t)
- '(haskell-process-type (quote auto))
- '(haskell-stylish-on-save nil)
  '(haskell-tags-on-save t)
  '(helm-ag-fuzzy-match t)
  '(helm-ag-use-grep-ignore-list nil)
