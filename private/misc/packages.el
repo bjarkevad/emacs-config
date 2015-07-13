@@ -6,6 +6,7 @@
 ;;    edbi-database-url
     ;; edbi-minor-mode
     ;; butler ;; jenkins
+    f
     yaml-mode
     graphviz-dot-mode
     )
@@ -34,4 +35,9 @@ which require an initialization must be listed explicitly in the list.")
         (kbd "=") 'yaml-indent-line)
       )
   )
+  )
+
+(defun misc/init-f ()
+  (use-package f
+    :defer nil)
   )

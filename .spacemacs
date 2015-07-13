@@ -6,7 +6,7 @@
  dotspacemacs-feature-toggle-leader-on-jk nil
  dotspacemacs-excluded-packages '()
  dotspacemacs-default-package-repository nil
- dotspacemacs-themes '(hc-zenburn)
+ dotspacemacs-themes '(hc-zenburn solarized-light)
  dotspacemacs-configuration-layers '(
                                      (auto-completion :variables
                                                       auto-completion-use-tab-instead-of-enter t
@@ -17,11 +17,20 @@
                                                       syntax-checking-enable-tooltips nil)
 
                                      (haskell :variables
-                                              haskell-enable-ghci-ng-support t
+                                              ;; haskell-enable-ghci-ng-support t
+                                              ;; haskell-enable-shm-support t
                                               haskell-enable-hindent-style "chris-done")
                                      (clojure :variables clojure-enable-fancify-symbols)
 
+                                     (shell :variables
+                                            shell-default-shell 'ansi-term
+                                            shell-default-position "bottom"
+                                            shell-default-height 30
+                                            shell-default-term-shell "/usr/bin/zsh"
+                                            )
+
                                      git
+                                     version-control
                                      extra-langs
                                      org
                                      scala
@@ -30,8 +39,10 @@
                                      markdown
                                      sql
                                      fasd
-                                     auctex
+                                     latex
                                      emacs-lisp
+                                     html
+                                     javascript
                                      )
  )
 
@@ -67,11 +78,8 @@
 (defun dotspacemacs/init ()
   "User initialization for Spacemacs. This function is called at the very
  startup."
-  (progn
-    (add-to-list 'exec-path "~/.OmniSharp/")
-    ;; (add-to-list 'exec-path "~/.cabal-emacs/.cabal-sandbox/bin/")
-    )
 
+  (progn
   (autoload 'haskell-indentation-enable-show-indentations "haskell-indentation")
   (autoload 'haskell-indentation-disable-show-indentations "haskell-indentation")
   )
@@ -82,9 +90,12 @@
                                  )))
 (defun language/latex()
   (progn
+   (add-hook 'latex-mode-hook 'linum-mode)
+   (add-hook 'LaTeX-mode-hook 'linum-mode)
   (setq-default TeX-engine 'xetex)
   (evil-leader/set-key-for-mode 'latex-mode
-    "mv" 'TeX-view))
+    "mv" 'TeX-view
+    "mpC" 'preview-clearout-document))
     )
 
 (defun language/rsl()
@@ -108,11 +119,14 @@
           "ml" 'rsl2latex
           "mL" 'latex2rsl
           "mc" 'rsltc-cc
+          "mr" 'rsltc-m-and-run
           )))
 
 (defun language/haskell()
   (progn
+    (add-to-list 'exec-path "~/.cabal/bin/")
     (setq ghc-debug t)
+    (defvar ghc-interactive-command "ghc-modi")
 
   (defun haskell/enable-eldoc ()
     (setq-local eldoc-documentation-function
@@ -139,15 +153,14 @@
   "This is were you can ultimately override default Spacemacs configuration.
 This function is called at the very end of Spacemacs initialization."
   ;;(company-emacs-eclim-setup)
-  ;; (add-to-list 'exec-path "~/.cabal-emacs/.cabal-sandbox/bin/")
 
   (language/clojure)
   (language/latex)
   (language/haskell)
   (language/org)
 
-  (if (equal system-name "mbp")
-      (language/rsl))
+  ;; (if (equal system-name "mbp")
+  ;;     (language/rsl))
 
 
   ;; (progn
@@ -163,12 +176,14 @@ This function is called at the very end of Spacemacs initialization."
 
   (evil-leader/set-key "TAB" 'spacemacs/alternate-buffer)
 
-  (global-linum-mode t)
+  ;; (global-linum-mode t)
+  (add-hook 'prog-mode-hook 'linum-mode)
   (linum-relative-toggle)
   (spacemacs/mode-line-minor-modes-toggle)
+  (spacemacs/mode-line-battery-info-toggle)
 
-  (set-face-attribute 'fringe nil :background "#3F3F3F" :foreground "#3F3F3F")
-  (set-face-attribute 'linum nil :background "#3F3F3F")
+  ;; (set-face-attribute 'fringe nil :background "#3F3F3F" :foreground "#3F3F3F")
+  ;; (set-face-attribute 'linum nil :background "#3F3F3F")
 
   ;; (add-to-list 'evil-emacs-state-modes 'helm-mode)
 
@@ -252,7 +267,7 @@ This function is called at the very end of Spacemacs initialization."
 
   (evil-leader/set-key-for-mode 'org-mode
     "mp" 'org-preview-latex-fragment
-    "mi" 'org-toggle-inline-images
+    "mI" 'org-toggle-inline-images
     "mc" 'org-ctrl-c-ctrl-c
     )
 
@@ -267,8 +282,12 @@ This function is called at the very end of Spacemacs initialization."
     "os" 'helm-yas-create-snippet-on-region
     "oe" 'yas-visit-snippet-file
     "or" 'yas-reload-all
+    "gF" 'magit-pull
+    "gf" 'magit-fetch
+    "gp" 'magit-push
     )
   )
+)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -282,25 +301,23 @@ This function is called at the very end of Spacemacs initialization."
      (output-dvi "xdg-open")
      (output-pdf "xdg-open")
      (output-html "xdg-open"))))
- '(ac-ispell-requires 4)
+ '(ac-ispell-requires 4 t)
  '(ahs-case-fold-search nil)
  '(ahs-default-range (quote ahs-range-whole-buffer))
  '(ahs-idle-interval 0.25)
  '(ahs-idle-timer 0 t)
  '(ahs-inhibit-face-list nil)
+ '(auto-revert-interval 0.1)
  '(blink-cursor-mode nil)
  '(ccm-ignored-commands
    (quote
     (mouse-drag-region mouse-set-point widget-button-click scroll-bar-toolkit-scroll evil-mouse-drag-region)))
  '(ccm-recenter-at-end-of-file t)
- '(company-auto-complete-chars (quote (32 41 46)))
- '(company-idle-delay 0.0)
  '(ensime-company-case-sensitive t)
- '(ensime-goto-test-config-defaults
-   (quote
-    (:test-class-names-fn ensime-goto-test--test-class-names :test-class-suffixes
-                          ("Test" "Spec" "Specification" "Check")
-                          :impl-class-name-fn ensime-goto-test--impl-class-name :impl-to-test-dir-fn ensime-goto-test--impl-to-test-dir :is-test-dir-fn ensime-goto-test--is-test-dir :test-template-fn ensime-goto-test--test-template-scalatest-2)))
+ ;; '(ensime-goto-test-config-defaults
+ ;;   (:test-class-names-fn ensime-goto-test--test-class-names :test-class-suffixes
+ ;;                         ("Test" "Spec" "Specification" "Check")
+ ;;                         :impl-class-name-fn ensime-goto-test--impl-class-name :impl-to-test-dir-fn ensime-goto-test--impl-to-test-dir :is-test-dir-fn ensime-goto-test--is-test-dir :test-template-fn ensime-goto-test--test-template-scalatest-2))
  '(ensime-inf-default-cmd-line (quote ("sbt" "console")))
  '(evil-search-highlight-persist t t)
  '(flycheck-display-errors-delay 0)
@@ -341,11 +358,17 @@ This function is called at the very end of Spacemacs initialization."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:foreground "#DCDCCC" :background "#313131"))))
- '(ac-candidate-mouse-face ((t (:inherit popup-menu-mouse-face :background "royal blue"))))
- '(company-tooltip-annotation ((t (:inherit company-tooltip :foreground "Brown"))))
  '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
- '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil))))
- '(evil-search-highlight-persist-highlight-face ((t (:background "selectedMenuItemColor"))))
- '(region ((t (:inverse-video t))))
- '(shm-current-face ((t (:background "#373737"))))
- '(sp-pair-overlay-face ((t (:background "#444455")))))
+ '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ahs-case-fold-search nil)
+ '(ahs-default-range (quote ahs-range-whole-buffer))
+ '(ahs-idle-interval 0.25)
+ '(ahs-idle-timer 0 t)
+ '(ahs-inhibit-face-list nil)
+ '(paradox-github-token t)
+ '(ring-bell-function (quote ignore) t))
