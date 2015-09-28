@@ -41,3 +41,8 @@ which require an initialization must be listed explicitly in the list.")
   (use-package f
     :defer nil)
   )
+
+(defun misc/init-graphviz-dot-mode ()
+  (use-package graphviz-dot-mode
+    :defer t
+    ))

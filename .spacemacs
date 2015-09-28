@@ -1,17 +1,17 @@
+
 ;;; -*- mode: emacs-lisp -*-
 
 (setq-default
  dotspacemacs-configuration-layer-path '("~/.emacsprivate/private/")
- dotspacemacs-smooth-scrolling t
+ ;;dotspacemacs-smooth-scrolling t
  dotspacemacs-feature-toggle-leader-on-jk nil
  dotspacemacs-excluded-packages '()
  dotspacemacs-default-package-repository nil
- dotspacemacs-themes '(hc-zenburn solarized-light)
+ dotspacemacs-themes '(hc-zenburn)
  dotspacemacs-configuration-layers '(
                                      (auto-completion :variables
-                                                      auto-completion-use-tab-instead-of-enter t
-                                                      auto-completion-enable-company-help-tooltip t
-                                                      auto-completion-sort-by-usage t)
+                                                      auto-completion-enable-help-tooltip t
+                                                      auto-completion-enable-sort-by-usage t)
 
                                      (syntax-checking :variables
                                                       syntax-checking-enable-tooltips nil)
@@ -19,8 +19,8 @@
                                      (haskell :variables
                                               ;; haskell-enable-ghci-ng-support t
                                               ;; haskell-enable-shm-support t
+                                              ;; haskell-enable-stack-support t
                                               haskell-enable-hindent-style "chris-done")
-                                     (clojure :variables clojure-enable-fancify-symbols)
 
                                      (shell :variables
                                             shell-default-shell 'ansi-term
@@ -29,20 +29,32 @@
                                             shell-default-term-shell "/usr/bin/zsh"
                                             )
 
-                                     git
-                                     version-control
-                                     extra-langs
-                                     org
-                                     scala
-                                     misc
-                                     themes-megapack
-                                     markdown
-                                     sql
-                                     fasd
+                                     ;; (c-c++ :variables
+                                     ;;        c-c++-enable-clang-support t
+                                     ;;        )
+
+                                     ;; (clojure :variables clojure-enable-fancify-symbols)
+
+                                     ;; scala
+
                                      latex
                                      emacs-lisp
-                                     html
                                      javascript
+                                     sql
+                                     html
+
+                                     sematic
+                                     git
+                                     version-control
+                                     org
+                                     themes-megapack
+                                     markdown
+                                     misc
+                                     ;; pandoc
+                                     ;; extra-langs
+                                     ;; fasd
+                                     ;; html
+                                     ;; javascript
                                      )
  )
 
@@ -75,14 +87,27 @@
                                 :width normal
                                 :powerline-offset 2))))
 
+(pcase window-system
+  (`x    (progn
+           (menu-bar-mode 0)))
+  (other (progn
+           ;; (setq mac-command-modifier 'meta)
+           ;; (setq mac-option-modifier nil)
+           (menu-bar-mode 1)
+           ;;(spacemacs/mode-line-battery-info-toggle)
+           ))
+  )
+
 (defun dotspacemacs/init ()
   "User initialization for Spacemacs. This function is called at the very
  startup."
 
-  (progn
-  (autoload 'haskell-indentation-enable-show-indentations "haskell-indentation")
-  (autoload 'haskell-indentation-disable-show-indentations "haskell-indentation")
-  )
+   (progn
+    (add-to-list 'exec-path "~/.cabal/bin/")
+    (add-hook 'haskell-mode-hook 'haskell-auto-insert-module-template)
+  ;; (autoload 'haskell-indentation-enable-show-indentations "haskell-indentation")
+  ;; (autoload 'haskell-indentation-disable-show-indentations "haskell-indentation")
+   )
 
 (defun language/clojure()
   (add-hook 'clojure-mode-hook (lambda ()
@@ -98,109 +123,10 @@
     "mpC" 'preview-clearout-document))
     )
 
-(defun language/rsl()
-      (progn
-        (setq load-path (cons "~/.emacsprivate/02263/" load-path))
-        (load "rsltc.el")
-        (load "rsl-mode.el")
-        (load "rslconvert.el")
-
-        (defun rsl2latex ()
-          "Do rslatex on buffer"
-          (interactive)
-          (do-latex))
-
-        (defun latex2rsl ()
-          "Undo rslatex on buffer"
-          (interactive)
-          (undo-latex))
-
-        (evil-leader/set-key-for-mode 'rsl-mode
-          "ml" 'rsl2latex
-          "mL" 'latex2rsl
-          "mc" 'rsltc-cc
-          "mr" 'rsltc-m-and-run
-          )))
-
-(defun language/haskell()
-  (progn
-    (add-to-list 'exec-path "~/.cabal/bin/")
-    (setq ghc-debug t)
-    (defvar ghc-interactive-command "ghc-modi")
-
-  (defun haskell/enable-eldoc ()
-    (setq-local eldoc-documentation-function
-                (lambda ()
-                  (if (haskell-session-maybe)
-                      (haskell/haskell-show-type))))
-    (eldoc-mode +1))
-
-  (defun haskell/haskell-show-type ()
-    (interactive)
-    (if haskell-enable-ghci-ng-support
-        (haskell-mode-show-type-at)
-      (haskell-process-do-type)))
-
-  ;; (add-hook 'haskell-mode-hook 'haskell/enable-eldoc)
-    ))
-
-(defun language/org ()
-  (progn
-    (evil-define-key 'normal evil-org-mode-map "O" 'evil-open-above)
-    ))
-
-(defun dotspacemacs/config ()
-  "This is were you can ultimately override default Spacemacs configuration.
-This function is called at the very end of Spacemacs initialization."
-  ;;(company-emacs-eclim-setup)
-
-  (language/clojure)
-  (language/latex)
-  (language/haskell)
-  (language/org)
-
-  ;; (if (equal system-name "mbp")
-  ;;     (language/rsl))
-
-
-  ;; (progn
-  ;;   (yas-global-mode 1)
-  ;;   (define-key yas-minor-mode-map (kbd "<tab>") nil)
-  ;;   (define-key yas-minor-mode-map (kbd "TAB") nil)
-  ;;   (define-key yas-minor-mode-map (kbd "<backtab>") 'yas-expand))
-
-  (setq powerline-default-separator 'arrow)
-  (setq magit-repo-dirs '("~/Workspace/"))
-  (setq system-uses-terminfo nil)
-  (setq helm-prevent-escaping-from-minibuffer t)
-
-  (evil-leader/set-key "TAB" 'spacemacs/alternate-buffer)
-
-  ;; (global-linum-mode t)
-  (add-hook 'prog-mode-hook 'linum-mode)
-  (linum-relative-toggle)
-  (spacemacs/mode-line-minor-modes-toggle)
-  (spacemacs/mode-line-battery-info-toggle)
-
-  ;; (set-face-attribute 'fringe nil :background "#3F3F3F" :foreground "#3F3F3F")
-  ;; (set-face-attribute 'linum nil :background "#3F3F3F")
-
-  ;; (add-to-list 'evil-emacs-state-modes 'helm-mode)
-
-  (pcase window-system
-    (`x    (progn
-             (menu-bar-mode 0)
-             ))
-    (other (progn
-             ;; (setq mac-command-modifier 'meta)
-             ;; (setq mac-option-modifier nil)
-             (menu-bar-mode 1)
-             (spacemacs/mode-line-battery-info-toggle)
-             ))
-    )
-
   ;; SQL
   ;; (add-hook 'sql-mode-hook 'edbi-minor-mode)
+  (defun language/sql ()
+    (progn
   (add-hook 'sql-interactive-mode-hook
             (lambda ()
               (toggle-truncate-lines t)))
@@ -253,28 +179,107 @@ This function is called at the very end of Spacemacs initialization."
   (evil-leader/set-key
     "od" 'helm-connect-database
     "oa" 'sql-set-sqli-buffer
-    )
+    )))
 
-  (defun gen-ensime ()
+(defun language/rsl()
+      (progn
+        (setq load-path (cons "~/.emacsprivate/02263/" load-path))
+        (load "rsltc.el")
+        (load "rsl-mode.el")
+        (load "rslconvert.el")
+
+        (defun rsl2latex ()
+          "Do rslatex on buffer"
+          (interactive)
+          (do-latex))
+
+        (defun latex2rsl ()
+          "Undo rslatex on buffer"
+          (interactive)
+          (undo-latex))
+
+        (evil-leader/set-key-for-mode 'rsl-mode
+          "ml" 'rsl2latex
+          "mL" 'latex2rsl
+          "mc" 'rsltc-cc
+          "mr" 'rsltc-m-and-run
+          )))
+
+(defun language/haskell()
+  (progn
+    (add-to-list 'exec-path "~/.cabal/bin/")
+    (setq ghc-debug t)
+    (defvar ghc-interactive-command "ghc-modi")
+
+  (defun haskell/enable-eldoc ()
+    (setq-local eldoc-documentation-function
+                (lambda ()
+                  (if (haskell-session-maybe)
+                      (haskell/haskell-show-type))))
+    (eldoc-mode +1))
+
+  (defun haskell/haskell-show-type ()
     (interactive)
-    (sbt-command "gen-ensime")
-    )
+    (if haskell-enable-ghci-ng-support
+        (haskell-mode-show-type-at)
+      (haskell-process-do-type)))
 
-  (evil-leader/set-key-for-mode 'scala-mode
-    "mnq" 'ensime-shutdown
-    "mng" 'gen-ensime
-    )
+  ;; (add-hook 'haskell-mode-hook 'haskell/enable-eldoc)
+    (evil-leader/set-key-for-mode 'haskell-mode
+      "msr" 'haskell-process-restart)
+    ))
 
-  (evil-leader/set-key-for-mode 'org-mode
-    "mp" 'org-preview-latex-fragment
-    "mI" 'org-toggle-inline-images
-    "mc" 'org-ctrl-c-ctrl-c
-    )
+(defun language/org ()
+  (progn
+    (evil-define-key 'normal evil-org-mode-map "O" 'evil-open-above)
+    (evil-leader/set-key-for-mode 'org-mode
+      "mp" 'org-preview-latex-fragment
+      "mI" 'org-toggle-inline-images
+      "mc" 'org-ctrl-c-ctrl-c
+      )
+    ))
 
-  (evil-leader/set-key-for-mode 'graphviz-dot-mode
-    "mp" 'graphviz-dot-preview
-    "mc" 'compile
-    )
+(defun language/scala()
+  (progn
+
+    (defun gen-ensime ()
+      (interactive)
+      (sbt-command "gen-ensime")
+      )
+
+    (evil-leader/set-key-for-mode 'scala-mode
+      "mnq" 'ensime-shutdown
+      "mng" 'gen-ensime
+      )))
+
+
+(defun language/dot ()
+  (progn
+    (evil-leader/set-key-for-mode 'graphviz-dot-mode
+      "mp" 'graphviz-dot-preview
+      "mc" 'compile
+      )))
+
+(defun dotspacemacs/config ()
+  "This is were you can ultimately override default Spacemacs configuration.
+This function is called at the very end of Spacemacs initialization."
+  ;;(company-emacs-eclim-setup)
+
+  (language/latex)
+  (language/haskell)
+  (language/org)
+
+  (setq powerline-default-separator 'arrow)
+
+  (add-hook 'prog-mode-hook 'linum-mode)
+  (linum-relative-toggle)
+  (spacemacs/toggle-mode-line-battery-on)
+  (spacemacs/toggle-mode-line-minor-modes-off)
+
+  ;; (set-face-attribute 'fringe nil :background "#3F3F3F" :foreground "#3F3F3F")
+  ;; (set-face-attribute 'linum nil :background "#3F3F3F")
+
+  ;; (add-to-list 'evil-emacs-state-modes 'helm-mode)
 
   (evil-leader/set-key
     "oq" 'ielm
